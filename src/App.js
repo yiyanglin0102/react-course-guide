@@ -83,7 +83,7 @@ class App extends React.Component {
             position: "fixed",
             zIndex: 1,
             width: "100%",
-            backgroundColor: "white",
+            backgroundColor: "#313854",
           }}
         >
           {/* Search Tab */}

@@ -1,17 +1,17 @@
-import React from "react";
+import React, {Component, createRef} from "react";
 import "./App.css";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import SearchAndFilter from "./SearchAndFilter";
 
-class Sidebar extends React.Component {
+class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.searchAndFilter = new SearchAndFilter();
-    this.subject = React.createRef(); // Reference to the subject dropdown
-    this.minimumCredits = React.createRef(); // Reference to the minimum credits input
-    this.maximumCredits = React.createRef(); // Reference to the maximum credits input
-    this.search = React.createRef(); // Reference to the search keyword input
+    this.subject = createRef(); // Reference to the subject dropdown
+    this.minimumCredits = createRef(); // Reference to the minimum credits input
+    this.maximumCredits = createRef(); // Reference to the maximum credits input
+    this.search = createRef(); // Reference to the search keyword input
   }
 
   setCourses() {
