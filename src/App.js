@@ -22,6 +22,7 @@ class App extends React.Component {
       cart: [], // The list of added courses to cart
     };
     this.addCourseCart = this.addCourseCart.bind(this);
+    this.removeCourseCart = this.removeCourseCart.bind(this);
   }
 
   /**
@@ -74,15 +75,23 @@ class App extends React.Component {
     // This is a callback function for the filteredCourses state.
     // Set the courses to be displayed in the CourseArea under Search tab.
     // Refer to the Sidebar component (Sidebar.js) to understand when this is used.
-
     this.setState({ filteredCourses: courses });
   }
 
   addCourseCart(course) {
-    // console.log(this.state.cart);
-    let newCart = [...this.state.cart];
-    newCart.push(course);
-    this.setState({ cart: newCart });
+    let updatedCart = [...this.state.cart]; //copy the original Cart
+    updatedCart.push(course);
+    this.setState({ cart: updatedCart });  //override the original cart
+  }
+
+  removeCourseCart(course) {
+
+    let updatedCart = [...this.state.cart]; //copy the original Cart
+    updatedCart = updatedCart.filter(function (item) {
+      return item !== course
+    })
+    console.log(updatedCart);
+    this.setState({ cart: updatedCart }); //override the original cart
   }
 
   render() {
@@ -120,11 +129,9 @@ class App extends React.Component {
               {/* Put your component for the cart feature here. */}
               {/* Or, can you think of a way to reuse the CourseArea component?  */}
 
-
               <Cart data={this.state.cart}
-              >
-              </Cart>
-
+                removeCart={this.removeCourseCart}
+              />
 
             </div>
           </Tab>

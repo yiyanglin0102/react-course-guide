@@ -15,17 +15,26 @@ class Course extends Component {
     }
   }
 
-
-
   render() {
     return (
       <div>
-        <Button onClick={
+        <Button 
+        onClick={
           () => {
             this.props.addCart(this.props.data)
           }
         }
         >Add to Cart</Button>
+        
+        <Button 
+        onClick={
+          () => {
+            this.props.removeCart(this.props.data)
+            // console.log(this.props.data);
+          }
+        }
+        >remove from Cart</Button>
+
         <h6>###########################################</h6>
         <Section data={this.props.data} />
         <h6># Discussions ################################</h6>
