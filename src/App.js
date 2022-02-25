@@ -4,6 +4,8 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import Sidebar from "./Sidebar";
 import CourseArea from "./CourseArea";
+import Cart from "./Cart";
+
 
 /**
  * The main application component.
@@ -17,7 +19,9 @@ class App extends React.Component {
       filteredCourses: [], // The courses to be displayed in the CourseArea under Search tab.
       subjects: [], // The list of unique subjects fetched from the server.
       completedCourses: [], // The list of *course numbers* of completed courses.
+      cart: [], // The list of added courses to cart
     };
+    this.addCourseCart = this.addCourseCart.bind(this);
   }
 
   /**
@@ -27,7 +31,7 @@ class App extends React.Component {
    */
   componentDidMount() {
     // Fetch all the courses from the server
-    fetch("https://cs571.cs.wisc.edu/api/react/classes")
+    fetch("https://cs571-course-guide.herokuapp.com/api/react/classes")
       .then((res) => res.json())
       .then((data) => {
         this.setState({
@@ -39,7 +43,7 @@ class App extends React.Component {
       .catch((err) => console.log(err));
 
     // Fetch the completed courses from the server.
-    fetch("https://cs571.cs.wisc.edu/api/react/students/5022025924/classes/completed")
+    fetch("https://cs571-course-guide.herokuapp.com/api/react/students/5022025924/classes/completed")
       .then((res) => res.json())
       .then((data) => {
         // Notice that completed courses are returned
@@ -74,6 +78,13 @@ class App extends React.Component {
     this.setState({ filteredCourses: courses });
   }
 
+  addCourseCart(course) {
+    // console.log(this.state.cart);
+    let newCart = [...this.state.cart];
+    newCart.push(course);
+    this.setState({ cart: newCart });
+  }
+
   render() {
     return (
       <>
@@ -98,6 +109,7 @@ class App extends React.Component {
                 data={this.state.filteredCourses}
                 allData={this.state.allCourses}
                 compactMode={false} // Optionally, you could use this prop in the future for Cart and Completed Courses?
+                addCart={this.addCourseCart}
               />
             </div>
           </Tab>
@@ -107,6 +119,13 @@ class App extends React.Component {
             <div style={{ marginLeft: "5vw" }}>
               {/* Put your component for the cart feature here. */}
               {/* Or, can you think of a way to reuse the CourseArea component?  */}
+
+
+              <Cart data={this.state.cart}
+              >
+              </Cart>
+
+
             </div>
           </Tab>
 
