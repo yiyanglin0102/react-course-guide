@@ -90,7 +90,6 @@ class App extends React.Component {
     updatedCart = updatedCart.filter(function (item) {
       return item !== course
     })
-    console.log(updatedCart);
     this.setState({ cart: updatedCart }); //override the original cart
   }
 
@@ -119,6 +118,7 @@ class App extends React.Component {
                 allData={this.state.allCourses}
                 compactMode={false} // Optionally, you could use this prop in the future for Cart and Completed Courses?
                 addCart={this.addCourseCart}
+                removeCart={this.removeCourseCart}
               />
             </div>
           </Tab>
@@ -130,6 +130,7 @@ class App extends React.Component {
               {/* Or, can you think of a way to reuse the CourseArea component?  */}
 
               <Cart data={this.state.cart}
+                // addCart={this.addCourseCart}
                 removeCart={this.removeCourseCart}
               />
 

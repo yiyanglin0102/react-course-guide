@@ -9,9 +9,11 @@ class CourseArea extends Component {
     // console.log(this.props.data);
     const courses = this.props.data.map((course) => {
       return <Course 
+      ShowAdd={true}
       key={course.name} 
       data={course} 
       addCart={this.props.addCart} 
+      removeCart={this.props.removeCart} 
       callbackFromCourse={this.props.callbackFromCourseArea} />;
     });
 

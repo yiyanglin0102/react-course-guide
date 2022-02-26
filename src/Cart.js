@@ -13,10 +13,10 @@ class Cart extends React.Component {
 
     const courses = this.props.data.map((course) => {
       return <Course
+        ShowAdd={false}
         key={course.name}
         data={course}
         removeCart={this.props.removeCart} 
-        // callbackFromCourse={this.state.cartCourses} // for rating?
       />;
     });
     return courses;
