@@ -32,7 +32,9 @@ class Subsection extends React.Component {
   }
   render() {
     return <div>
+     {!this.props.compactMode && <div>
       {this.renderTableData()}
+      </div>}
     </div>;
   }
 }
