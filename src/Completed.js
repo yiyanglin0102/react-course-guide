@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Course from './Course';
+import Card from 'react-bootstrap/Card';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 class Completed extends Component {
   constructor(props) {
@@ -8,30 +11,48 @@ class Completed extends Component {
   }
 
   getCourseDetails() {
+    /// compare courses in completed list with all courses
+    /// output completed courses' details
     let result = [];
     for (let i = 0; i < this.props.completedData.length; i++) {
-      for(let j = 0; j < this.props.allData.length; j++)
-      {
-        if (this.props.allData[j].number === this.props.completedData[i])
-        {
+      for (let j = 0; j < this.props.allData.length; j++) {
+        if (this.props.allData[j].number === this.props.completedData[i]) {
+          this.props.allData[j].rating = 0;
           result.push(this.props.allData[j]);
         }
       }
     }
-    const courses = result.map((course) => {
-      return <Course
-        key={course.name}
-        data={course}
-        compactMode={this.props.compactMode}
-      />;
-    });
+
+    // const courses = result.map((course) => {
+    //   return (
+    //     <Course
+    //       key={course.name}
+    //       data={course}
+    //       compactMode={this.props.compactMode}
+    //     />
+    //   );
+    // });
+
+    let courses = [];
+    for (const course of result) {
+
+
+      // console.log(course)
+
+      courses.push(
+        <>
+          <Course key={course.name} data={course} compactMode={this.props.compactMode}/>
+         
+        </>
+      )
+    }
+
     return courses;
   }
 
   render() {
     return <div>{this.getCourseDetails()}</div>;
   }
-
 }
 
 export default Completed;

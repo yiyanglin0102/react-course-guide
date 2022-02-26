@@ -97,7 +97,7 @@ class App extends React.Component {
     return (
       <>
         <Tabs
-          defaultActiveKey="search"
+          defaultActiveKey="completedCourses"
           style={{
             position: "fixed",
             zIndex: 1,
@@ -139,7 +139,7 @@ class App extends React.Component {
           </Tab>
 
           {/* Completed Courses Tab */}
-          <Tab eventKey="completedCourses" title="Completed Courses" style={{ paddingTop: "5vh" }}>
+          <Tab eventKey="completedCourses" title={"Completed Courses"+"★★★☆☆    wtf"} style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
               {/* Put your component for the completed courses feature here. */}
               {/* Or, can you think of a way to reuse the CourseArea component? */}

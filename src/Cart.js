@@ -4,6 +4,12 @@ import Button from 'react-bootstrap/Button';
 
 
 class Cart extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+
   getCourses() {
     console.log("Cart have these courses: ");
     console.log(this.props.data);
