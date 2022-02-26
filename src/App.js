@@ -132,6 +132,7 @@ class App extends React.Component {
               <Cart data={this.state.cart}
                 // addCart={this.addCourseCart}
                 removeCart={this.removeCourseCart}
+                compactMode={false}
               />
 
             </div>
@@ -144,6 +145,7 @@ class App extends React.Component {
               {/* Or, can you think of a way to reuse the CourseArea component? */}
               <Completed completedData={this.state.completedCourses}
                 allData={this.state.allCourses}
+                compactMode={true}
               />
             </div>
           </Tab>

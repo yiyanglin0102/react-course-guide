@@ -38,9 +38,9 @@ class Course extends Component {
           onClick={this.remove}>Remove from Cart</Button>
 
         <h6>###########################################</h6>
-        <Section data={this.props.data} />
+        <Section data={this.props.data} compactMode={this.props.compactMode} />
         <h6># Discussions ################################</h6>
-        <Subsection data={this.props.data} />
+        <Subsection data={this.props.data} compactMode={this.props.compactMode} />
         <h6>###########################################</h6>
       </div>
     )

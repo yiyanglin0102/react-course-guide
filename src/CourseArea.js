@@ -14,7 +14,8 @@ class CourseArea extends Component {
       data={course} 
       addCart={this.props.addCart} 
       removeCart={this.props.removeCart} 
-      callbackFromCourse={this.props.callbackFromCourseArea} />;
+      callbackFromCourse={this.props.callbackFromCourseArea}
+      compactMode={this.props.compactMode} />;
     });
 
     // 2. Imperative way of returning the courses, using for ... of iteration and .push().

@@ -22,6 +22,7 @@ class Completed extends Component {
       return <Course
         key={course.name}
         data={course}
+        compactMode={this.props.compactMode}
       />;
     });
     return courses;

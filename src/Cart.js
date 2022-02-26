@@ -17,6 +17,7 @@ class Cart extends React.Component {
         key={course.name}
         data={course}
         removeCart={this.props.removeCart} 
+        compactMode={this.props.compactMode}
       />;
     });
     return courses;
