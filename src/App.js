@@ -5,6 +5,7 @@ import Tab from "react-bootstrap/Tab";
 import Sidebar from "./Sidebar";
 import CourseArea from "./CourseArea";
 import Cart from "./Cart";
+import Completed from "./Completed";
 
 
 /**
@@ -32,7 +33,7 @@ class App extends React.Component {
    */
   componentDidMount() {
     // Fetch all the courses from the server
-    fetch("https://cs571-course-guide.herokuapp.com/api/react/classes")
+    fetch("https://cs571.cs.wisc.edu/api/react/classes")
       .then((res) => res.json())
       .then((data) => {
         this.setState({
@@ -44,7 +45,7 @@ class App extends React.Component {
       .catch((err) => console.log(err));
 
     // Fetch the completed courses from the server.
-    fetch("https://cs571-course-guide.herokuapp.com/api/react/students/5022025924/classes/completed")
+    fetch("https://cs571.cs.wisc.edu/api/react/students/5022025924/classes/completed")
       .then((res) => res.json())
       .then((data) => {
         // Notice that completed courses are returned
@@ -85,7 +86,6 @@ class App extends React.Component {
   }
 
   removeCourseCart(course) {
-
     let updatedCart = [...this.state.cart]; //copy the original Cart
     updatedCart = updatedCart.filter(function (item) {
       return item !== course
@@ -142,6 +142,9 @@ class App extends React.Component {
             <div style={{ marginLeft: "5vw" }}>
               {/* Put your component for the completed courses feature here. */}
               {/* Or, can you think of a way to reuse the CourseArea component? */}
+              <Completed completedData={this.state.completedCourses}
+                allData={this.state.allCourses}
+              />
             </div>
           </Tab>
 
