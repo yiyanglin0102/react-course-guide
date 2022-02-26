@@ -21,9 +21,12 @@ class App extends React.Component {
       subjects: [], // The list of unique subjects fetched from the server.
       completedCourses: [], // The list of *course numbers* of completed courses.
       cart: [], // The list of added courses to cart
+      completedRating: [],
+      ratingCount: 0,
     };
     this.addCourseCart = this.addCourseCart.bind(this);
     this.removeCourseCart = this.removeCourseCart.bind(this);
+    this.rating = this.rating.bind(this);
   }
 
   /**
@@ -93,6 +96,19 @@ class App extends React.Component {
     this.setState({ cart: updatedCart }); //override the original cart
   }
 
+  rating(course) {
+    let updatedCart = [...this.state.completedRating]; //copy the original Cart
+    updatedCart = updatedCart.filter(item => item.name !== course.name);
+    updatedCart.push({
+      name: course.name,
+      rating: course.rating,
+    });
+    let c = this.state.completedCourses.length - this.state.completedRating.length;
+    this.setState({ completedRating: updatedCart });  //override the original cart
+    this.setState({ ratingCount: c });  //override the original cart
+    console.log(updatedCart);
+  }
+
   render() {
     return (
       <>
@@ -139,13 +155,15 @@ class App extends React.Component {
           </Tab>
 
           {/* Completed Courses Tab */}
-          <Tab eventKey="completedCourses" title={"Completed Courses"+"★★★☆☆    wtf"} style={{ paddingTop: "5vh" }}>
+          <Tab eventKey="completedCourses" title={"Completed Courses" + "★★★☆☆"+ (this.state.ratingCount)} style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
               {/* Put your component for the completed courses feature here. */}
               {/* Or, can you think of a way to reuse the CourseArea component? */}
-              <Completed completedData={this.state.completedCourses}
+              <Completed
+                completedData={this.state.completedCourses}
                 allData={this.state.allCourses}
                 compactMode={true}
+                rating={this.rating}
               />
             </div>
           </Tab>

@@ -41,8 +41,13 @@ class Completed extends Component {
 
       courses.push(
         <>
-          <Course key={course.name} data={course} compactMode={this.props.compactMode}/>
-         
+          <Course
+            key={course.name}
+            data={course}
+            compactMode={this.props.compactMode} 
+            rating={this.props.rating} 
+            />
+
         </>
       )
     }

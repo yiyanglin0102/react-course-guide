@@ -23,23 +23,28 @@ class Course extends Component {
 
   setRating1() {
     this.setState({ rating: 1, });
-    // console.log(this.state.rating);
+    this.props.data.rating = 1;
+    this.props.rating(this.props.data);
   }
   setRating2() {
     this.setState({ rating: 2, });
-    // console.log(this.state.rating);
+    this.props.data.rating = 2;
+    this.props.rating(this.props.data);
   }
   setRating3() {
     this.setState({ rating: 3, });
-    // console.log(this.state.rating);
+    this.props.data.rating = 3;
+    this.props.rating(this.props.data);
   }
   setRating4() {
     this.setState({ rating: 4, });
-    // console.log(this.state.rating);
+    this.props.data.rating = 4;
+    this.props.rating(this.props.data);
   }
   setRating5() {
     this.setState({ rating: 5, });
-    // console.log(this.state.rating);
+    this.props.data.rating = 5;
+    this.props.rating(this.props.data);
   }
 
   render() {
@@ -50,25 +55,25 @@ class Course extends Component {
         <Section data={this.props.data} compactMode={this.props.compactMode} />
         <Subsection data={this.props.data} compactMode={this.props.compactMode} />
         <h6>###########################################</h6>
-        {this.props.compactMode &&  <>
+        {this.props.compactMode && <>
           <h5>rating {this.state.rating}</h5>
-          
-            <Button
-              onClick={this.setRating1}
-            >★</Button>  
-            <Button
-              onClick={this.setRating2}
-            >★</Button>  
-            <Button
-              onClick={this.setRating3}
-            >★</Button>  
-            <Button
-              onClick={this.setRating4}
-            >★</Button> 
-            <Button
-              onClick={this.setRating5}
-            >★</Button> 
-          </>}
+
+          <Button
+            onClick={this.setRating1}
+          >★</Button>
+          <Button
+            onClick={this.setRating2}
+          >★</Button>
+          <Button
+            onClick={this.setRating3}
+          >★</Button>
+          <Button
+            onClick={this.setRating4}
+          >★</Button>
+          <Button
+            onClick={this.setRating5}
+          >★</Button>
+        </>}
       </div>
     )
   }
