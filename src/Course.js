@@ -13,6 +13,16 @@ class Course extends Component {
     super(props);
     this.state = {
       rating: 'Not rated',
+      Button1Pressed: false,
+      Button2Pressed: false,
+      Button3Pressed: false,
+      Button4Pressed: false,
+      Button5Pressed: false,
+      Button1Style: 'btn-btn-primary',
+      Button2Style: 'btn-btn-primary',
+      Button3Style: 'btn-btn-primary',
+      Button4Style: 'btn-btn-primary',
+      Button5Style: 'btn-btn-primary',
     }
     this.setRating1 = this.setRating1.bind(this);
     this.setRating2 = this.setRating2.bind(this);
@@ -25,26 +35,57 @@ class Course extends Component {
     this.setState({ rating: 1, });
     this.props.data.rating = 1;
     this.props.rating(this.props.data);
+    /// dealing with the asyc, the following two setState(s) are not compiling sequentially
+    ///https://stackoverflow.com/questions/36085726/why-is-setstate-in-reactjs-async-instead-of-sync
+    this.setState({ Button1Pressed: true, Button2Pressed: false, Button3Pressed: false, Button4Pressed: false, Button5Pressed: false, }, () => {
+      this.state.Button1Pressed
+        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-primary', Button3Style: 'btn btn-primary', Button4Style: 'btn btn-primary', Button5Style: 'btn btn-primary' })
+        : this.setState();
+    });
   }
   setRating2() {
     this.setState({ rating: 2, });
     this.props.data.rating = 2;
     this.props.rating(this.props.data);
+
+    this.setState({ Button1Pressed: false, Button2Pressed: true, Button3Pressed: false, Button4Pressed: false, Button5Pressed: false, }, () => {
+      this.state.Button2Pressed
+        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: 'btn btn-primary', Button4Style: 'btn btn-primary', Button5Style: 'btn btn-primary' })
+        : this.setState();
+    });
   }
   setRating3() {
     this.setState({ rating: 3, });
     this.props.data.rating = 3;
     this.props.rating(this.props.data);
+
+    this.setState({ Button1Pressed: false, Button2Pressed: false, Button3Pressed: true, Button4Pressed: false, Button5Pressed: false, }, () => {
+      this.state.Button3Pressed
+        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: 'btn btn-danger', Button4Style: 'btn btn-primary', Button5Style: 'btn btn-primary' })
+        : this.setState();
+    });
   }
   setRating4() {
     this.setState({ rating: 4, });
     this.props.data.rating = 4;
     this.props.rating(this.props.data);
+  
+    this.setState({ Button1Pressed: false, Button2Pressed: false, Button3Pressed: false, Button4Pressed: true, Button5Pressed: false, }, () => {
+      this.state.Button4Pressed
+        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: 'btn btn-danger', Button4Style: 'btn btn-danger', Button5Style: 'btn btn-primary' })
+        : this.setState();
+    });
   }
   setRating5() {
     this.setState({ rating: 5, });
     this.props.data.rating = 5;
     this.props.rating(this.props.data);
+
+    this.setState({ Button1Pressed: false, Button2Pressed: false, Button3Pressed: false, Button4Pressed: false, Button5Pressed: true, }, () => {
+      this.state.Button5Pressed
+        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: 'btn btn-danger', Button4Style: 'btn btn-danger', Button5Style: 'btn btn-danger' })
+        : this.setState();
+    });
   }
 
   render() {
@@ -56,22 +97,21 @@ class Course extends Component {
         <Subsection data={this.props.data} compactMode={this.props.compactMode} />
         <h6>###########################################</h6>
         {this.props.compactMode && <>
-          <h5>rating {this.state.rating}</h5>
-
-          <Button
-            onClick={this.setRating1}
+          <h5>Rating Stars: {this.state.rating}</h5>
+          <Button className={this.state.Button1Style}
+            onClick={this.setRating1.bind(this)}
           >★</Button>
-          <Button
-            onClick={this.setRating2}
+          <Button className={this.state.Button2Style}
+            onClick={this.setRating2.bind(this)}
           >★</Button>
-          <Button
-            onClick={this.setRating3}
+          <Button className={this.state.Button3Style}
+            onClick={this.setRating3.bind(this)}
           >★</Button>
-          <Button
-            onClick={this.setRating4}
+          <Button className={this.state.Button4Style}
+            onClick={this.setRating4.bind(this)}
           >★</Button>
-          <Button
-            onClick={this.setRating5}
+          <Button className={this.state.Button5Style}
+            onClick={this.setRating5.bind(this)}
           >★</Button>
         </>}
       </div>

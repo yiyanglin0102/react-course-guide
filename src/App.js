@@ -35,6 +35,9 @@ class App extends React.Component {
    *
    */
   componentDidMount() {
+    this.setState({
+      ratingCount: "1000"
+    });
     // Fetch all the courses from the server
     fetch("https://cs571.cs.wisc.edu/api/react/classes")
       .then((res) => res.json())
@@ -100,12 +103,16 @@ class App extends React.Component {
     let updatedCart = [...this.state.completedRating]; //copy the original Cart
     updatedCart = updatedCart.filter(item => item.name !== course.name);
     updatedCart.push({
+      key: course.name,
       name: course.name,
       rating: course.rating,
     });
-    let c = this.state.completedCourses.length - this.state.completedRating.length;
-    this.setState({ completedRating: updatedCart });  //override the original cart
-    this.setState({ ratingCount: c });  //override the original cart
+    this.setState();
+    this.setState({
+      completedRating: updatedCart,
+      ratingCount: this.state.completedCourses.length - this.state.completedRating.length
+    });  //override the original cart
+    // this.componentDidUpdate();  Ask here?
     console.log(updatedCart);
   }
 
@@ -155,16 +162,18 @@ class App extends React.Component {
           </Tab>
 
           {/* Completed Courses Tab */}
-          <Tab eventKey="completedCourses" title={"Completed Courses" + "★★★☆☆"+ (this.state.ratingCount)} style={{ paddingTop: "5vh" }}>
+          <Tab eventKey="completedCourses" title={"Completed Courses (" + (this.state.ratingCount) + " needs rating)"} style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
               {/* Put your component for the completed courses feature here. */}
               {/* Or, can you think of a way to reuse the CourseArea component? */}
+
               <Completed
                 completedData={this.state.completedCourses}
                 allData={this.state.allCourses}
                 compactMode={true}
                 rating={this.rating}
               />
+              
             </div>
           </Tab>
 

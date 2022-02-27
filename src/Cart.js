@@ -11,8 +11,8 @@ class Cart extends React.Component {
   }
 
   getCourses() {
-    console.log("Cart have these courses: ");
-    console.log(this.props.data);
+    // console.log("Cart have these courses: ");
+    // console.log(this.props.data);
     const courses = this.props.data.map((course) => {
       return <div>
         <Button

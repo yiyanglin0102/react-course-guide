@@ -35,23 +35,15 @@ class Completed extends Component {
 
     let courses = [];
     for (const course of result) {
-
-
-      // console.log(course)
-
       courses.push(
-        <>
           <Course
             key={course.name}
             data={course}
             compactMode={this.props.compactMode} 
             rating={this.props.rating} 
             />
-
-        </>
       )
     }
-
     return courses;
   }
 
