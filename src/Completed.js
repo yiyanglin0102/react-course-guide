@@ -17,7 +17,6 @@ class Completed extends Component {
     for (let i = 0; i < this.props.completedData.length; i++) {
       for (let j = 0; j < this.props.allData.length; j++) {
         if (this.props.allData[j].number === this.props.completedData[i]) {
-          this.props.allData[j].rating = 0;
           result.push(this.props.allData[j]);
         }
       }

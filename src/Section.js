@@ -22,9 +22,6 @@ class Section extends Component {
         <h5>Description------------------------------</h5>
         <div>{this.props.data.description}</div>
 
-
-
-
         {!this.props.compactMode && <div>
 
           <h5>Requisites------------------------------</h5>
@@ -49,10 +46,6 @@ class Section extends Component {
           )}</div>
 
         </div>}
-
-
-
-
         <div>
         </div>
       </div>

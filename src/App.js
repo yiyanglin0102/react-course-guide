@@ -36,7 +36,7 @@ class App extends React.Component {
    */
   componentDidMount() {
     this.setState({
-      ratingCount: "1000"
+      ratingCount: "course"
     });
     // Fetch all the courses from the server
     fetch("https://cs571.cs.wisc.edu/api/react/classes")
@@ -89,6 +89,7 @@ class App extends React.Component {
     let updatedCart = [...this.state.cart]; //copy the original Cart
     updatedCart.push(course);
     this.setState({ cart: updatedCart });  //override the original cart
+    console.log(course);
   }
 
   removeCourseCart(course) {
@@ -121,7 +122,7 @@ class App extends React.Component {
     return (
       <>
         <Tabs
-          defaultActiveKey="completedCourses"
+          defaultActiveKey="search"
           style={{
             position: "fixed",
             zIndex: 1,
