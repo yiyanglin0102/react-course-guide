@@ -107,11 +107,12 @@ class App extends React.Component {
       name: course.name,
       rating: course.rating,
     });
-    this.setState();
-    this.setState({
-      completedRating: updatedCart,
-      ratingCount: this.state.completedCourses.length - this.state.completedRating.length
-    });  //override the original cart
+
+    //https://stackoverflow.com/questions/36085726/why-is-setstate-in-reactjs-async-instead-of-sync
+    this.setState({completedRating: updatedCart,}, () => {
+      this.setState({ratingCount: this.state.completedCourses.length - this.state.completedRating.length});
+  });
+   
     // this.componentDidUpdate();  Ask here?
     console.log(updatedCart);
   }
@@ -173,7 +174,7 @@ class App extends React.Component {
                 compactMode={true}
                 rating={this.rating}
               />
-              
+
             </div>
           </Tab>
 
