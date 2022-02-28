@@ -97,7 +97,7 @@ class Course extends Component {
         <Subsection data={this.props.data} compactMode={this.props.compactMode} />
         <h6>###########################################</h6>
         {this.props.compactMode && <>
-          <h5>Rating Stars: {this.state.rating}</h5>
+          <h5>Rating: {typeof(this.state.rating)==="number"? <div>{this.state.rating + " Stars"}</div> : <div>Not Rated</div> }</h5>
           <Button className={this.state.Button1Style}
             onClick={this.setRating1.bind(this)}
           >★</Button>
