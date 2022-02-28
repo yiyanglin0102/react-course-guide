@@ -87,6 +87,14 @@ class App extends React.Component {
 
   addCourseCart(course) {
     let updatedCart = [...this.state.cart]; //copy the original Cart
+    for (let i = 0; i < updatedCart.length; i++)
+    {
+      if (updatedCart[i].number === course.number )
+      {
+        return;
+      }
+
+    }
     updatedCart.push(course);
     this.setState({ cart: updatedCart });  //override the original cart
     console.log(course);
