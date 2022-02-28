@@ -9,7 +9,7 @@ class CourseArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      addPressed: false,
     }
   }
 
@@ -18,8 +18,6 @@ class CourseArea extends Component {
     // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map for more details.
     // console.log(this.props.data);
     const courses = this.props.data.map((course) => {
-      console.log();
-      let WanttoAsk = true;
       return <div>
         <Button
           onClick={() => this.props.addCart(course)}

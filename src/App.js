@@ -22,7 +22,7 @@ class App extends React.Component {
       completedCourses: [], // The list of *course numbers* of completed courses.
       cart: [], // The list of added courses to cart
       completedRating: [],
-      ratingCount: 0,
+      ratingCount: 'Course',
     };
     this.addCourseCart = this.addCourseCart.bind(this);
     this.removeCourseCart = this.removeCourseCart.bind(this);
@@ -35,9 +35,6 @@ class App extends React.Component {
    *
    */
   componentDidMount() {
-    this.setState({
-      ratingCount: "course"
-    });
     // Fetch all the courses from the server
     fetch("https://cs571.cs.wisc.edu/api/react/classes")
       .then((res) => res.json())
@@ -58,6 +55,7 @@ class App extends React.Component {
         // as a list of course numbers, not course objects.
         this.setState({
           completedCourses: data.data,
+          ratingCount:  data.data.length,
         });
       })
       .catch((err) => console.log(err));
@@ -87,13 +85,10 @@ class App extends React.Component {
 
   addCourseCart(course) {
     let updatedCart = [...this.state.cart]; //copy the original Cart
-    for (let i = 0; i < updatedCart.length; i++)
-    {
-      if (updatedCart[i].number === course.number )
-      {
+    for (let i = 0; i < updatedCart.length; i++) {
+      if (updatedCart[i].number === course.number) {
         return;
       }
-
     }
     updatedCart.push(course);
     this.setState({ cart: updatedCart });  //override the original cart
@@ -118,10 +113,10 @@ class App extends React.Component {
     });
 
     //https://stackoverflow.com/questions/36085726/why-is-setstate-in-reactjs-async-instead-of-sync
-    this.setState({completedRating: updatedCart,}, () => {
-      this.setState({ratingCount: this.state.completedCourses.length - this.state.completedRating.length});
-  });
-   
+    this.setState({ completedRating: updatedCart, }, () => {
+      this.setState({ ratingCount: this.state.completedCourses.length - this.state.completedRating.length });
+    });
+
     // this.componentDidUpdate();  Ask here?
     console.log(updatedCart);
   }
