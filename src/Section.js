@@ -15,38 +15,16 @@ class Section extends Component {
     if (this.props.data.requisites.length === 0) {
       return "None";
     }
-    let requisites = JSON.stringify(this.props.data.requisites).replaceAll('"', '');
-    requisites = requisites.slice(1, -1);
 
-    let stack = [];
-    let final = "";
+    let requisites = this.props.data.requisites;
+    let outterArray = [];
     for (let i = 0; i < requisites.length; i++) {
-      let x = requisites[i];
-      if (x == '[') {
-        stack.push(x);
-        final += "(";
-        continue;
-      }
-      let check;
-      switch (x) {
-        case ']':
-          check = stack.pop();
-          if (requisites[i + 1] === ',') {
-            final += ") and ";
-            i++;
-          }
-          break;
-        case ',':
-          final += ") or (";
-          break;
-        default:
-          final += x;
-      }
+      let innerArray = "(";
+      innerArray += requisites[i].join(' OR ');
+      innerArray += ")";
+      outterArray.push(innerArray);
     }
-    final += ')'
-    // console.log(requisites);
-    // console.log("final : " + final);
-    return final;
+    return outterArray.join(' AND ');
   }
 
 
