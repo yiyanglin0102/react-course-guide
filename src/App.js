@@ -7,7 +7,7 @@ import CourseArea from "./CourseArea";
 import Cart from "./Cart";
 import Completed from "./Completed";
 import InterestsArea from "./InterestsArea";
-
+import Recommended from "./Recommended";
 
 /**
  * The main application component.
@@ -147,7 +147,7 @@ class App extends React.Component {
       }
     }
     let noDuplicateRecommender = [...new Set(updatedRecommender)];
-    this.setState({ recommendedCourses: noDuplicateRecommender }); 
+    this.setState({ recommendedCourses: noDuplicateRecommender });
   }
 
   render() {
@@ -174,6 +174,7 @@ class App extends React.Component {
                 data={this.state.filteredCourses}
                 allData={this.state.allCourses}
                 compactMode={false} // Optionally, you could use this prop in the future for Cart and Completed Courses?
+                recommenderMode={false}
                 addCart={this.addCourseCart}
                 removeCart={this.removeCourseCart}
               />
@@ -190,6 +191,7 @@ class App extends React.Component {
                 // addCart={this.addCourseCart}
                 removeCart={this.removeCourseCart}
                 compactMode={false}
+                recommenderMode={false}
               />
 
             </div>
@@ -205,6 +207,7 @@ class App extends React.Component {
                 completedData={this.state.completedCourses}
                 allData={this.state.allCourses}
                 compactMode={true}
+                recommenderMode={false}
                 rating={this.rating}
               />
 
@@ -230,10 +233,10 @@ class App extends React.Component {
               {/* Put your component for the cart feature here. */}
               {/* Or, can you think of a way to reuse the CourseArea component?  */}
 
-              <Cart data={this.state.cart}
-                // addRecommender={this.addRecommender}
-                // removeCart={this.removeCourseCart}
-                compactMode={false}
+              <Recommended
+                data={this.state.recommendedCourses}
+                compactMode={true}
+                recommenderMode={true}
               />
 
             </div>
