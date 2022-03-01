@@ -26,11 +26,14 @@ class App extends React.Component {
       ratingCount: 'Course',
       interestsTags: [], // All unique values of keywords in each course
       recommendedCourses: [],
+      selectedLikes: [],
     };
     this.addCourseCart = this.addCourseCart.bind(this);
     this.removeCourseCart = this.removeCourseCart.bind(this);
     this.rating = this.rating.bind(this);
     this.addRecommender = this.addRecommender.bind(this);
+    this.removeRecommender = this.removeRecommender.bind(this);
+    this.updateRecommendCourses = this.updateRecommendCourses.bind(this);
   }
 
   /**
@@ -137,11 +140,36 @@ class App extends React.Component {
 
   //input keyword and search all courses wih this keyword and push to recommendedCourses array
   addRecommender(tagName) {
-    console.log(tagName);
-    let updatedRecommender = [...this.state.recommendedCourses]; //copy the original Cart
+
+    let updatedLikes = [...this.state.selectedLikes];
+
+    updatedLikes.push(tagName);
+    updatedLikes = [...new Set(updatedLikes)];
+
+
+    this.setState({ selectedLikes: updatedLikes }, () => {
+      this.updateRecommendCourses();
+    });
+
+  }
+
+  removeRecommender(tagName) {
+    let updatedLikes = [...this.state.selectedLikes]; //copy the original Cart
+    updatedLikes = updatedLikes.filter(function (item) {
+      return item !== tagName
+    })
+    // console.log(updatedLikes);
+    this.setState({ selectedLikes: updatedLikes }, () => {
+      this.updateRecommendCourses();
+    });
+  }
+
+  updateRecommendCourses() {
+    let updatedRecommender = []; //copy the original Cart
+    console.log(this.state.selectedLikes);
     for (let i = 0; i < this.state.allCourses.length; i++) {
-      for (let j = 0; j < this.state.allCourses[i].keywords.length; j++) {
-        if (this.state.allCourses[i].keywords[j] === tagName) {
+      for (let j = 0; j < this.state.selectedLikes.length; j++) {
+        if (this.state.allCourses[i].keywords.includes(this.state.selectedLikes[j])) {
           updatedRecommender.push(this.state.allCourses[i]);
         }
       }
@@ -149,7 +177,6 @@ class App extends React.Component {
     let noDuplicateRecommender = [...new Set(updatedRecommender)];
     this.setState({ recommendedCourses: noDuplicateRecommender });
   }
-
   render() {
     return (
       <>
@@ -222,6 +249,7 @@ class App extends React.Component {
               <InterestsArea
                 interestsTags={this.state.interestsTags}
                 addRecommender={this.addRecommender}
+                removeRecommender={this.removeRecommender}
               />
 
             </div>

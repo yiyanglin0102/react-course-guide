@@ -15,36 +15,40 @@ class Interests extends Component {
     }
     this.pressed = this.pressed.bind(this);
     this.addRecommender = this.addRecommender.bind(this);
+    this.removeRecommender = this.removeRecommender.bind(this);
   }
 
 
-  addRecommender()
-  {
+  addRecommender() {
     this.props.addRecommender(this.props.name);
-    // console.log(this.props.name);
   }
 
+  removeRecommender() {
+    this.props.removeRecommender(this.props.name);
+  }
 
   pressed() {
     this.state.likePressed
-    ? this.setState({ likeStyle: 'light' })
-    : this.setState({ likeStyle: 'primary' }, () => { 
-      this.addRecommender()
-    });
-  this.state.likePressed
-    ? this.setState({ likePressed: false })
-    : this.setState({ likePressed: true });
+      ? this.setState({ likeStyle: 'light' }, () => {
+        this.removeRecommender()
+      })
+      : this.setState({ likeStyle: 'primary' }, () => {
+        this.addRecommender()
+      });
+    this.state.likePressed
+      ? this.setState({ likePressed: false })
+      : this.setState({ likePressed: true });
 
     // console.log(this.props.name);
   }
-  
+
   render() {
 
     return (
       <div>
-          <Button variant={this.state.likeStyle}
-            onClick={this.pressed.bind(this)}
-          >{this.props.name}</Button>
+        <Button variant={this.state.likeStyle}
+          onClick={this.pressed.bind(this)}
+        >{this.props.name}</Button>
       </div>
     )
   }

@@ -19,6 +19,7 @@ class InterestsArea extends Component {
           key={tag}
           name={tag} 
           addRecommender={this.props.addRecommender} 
+          removeRecommender={this.props.removeRecommender} 
           />
       </div>;
     });
