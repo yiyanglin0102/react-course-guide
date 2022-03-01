@@ -17,7 +17,7 @@ class Subsection extends React.Component {
       )
     })
   }
-  
+
   getDis(section, choice) {
     var discussions = section[choice].subsections;
     return Object.keys(discussions).map((key, index) => {
@@ -32,9 +32,12 @@ class Subsection extends React.Component {
   }
   render() {
     return <div>
-     {!this.props.compactMode && <div>
-      <h6># Discussions ################################</h6>
-      {this.renderTableData()}
+      {!this.props.compactMode && <div>
+        <h5>Discussions</h5>
+        <table>
+
+          {this.renderTableData()}
+        </table>
       </div>}
     </div>;
   }

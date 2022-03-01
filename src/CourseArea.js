@@ -16,7 +16,6 @@ class CourseArea extends Component {
   getCourses() {
     // 1. Declarative way of returning the courses, using .map().
     // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map for more details.
-    // console.log(this.props.data);
     const courses = this.props.data.map((course) => {
       return <div>
         <Button

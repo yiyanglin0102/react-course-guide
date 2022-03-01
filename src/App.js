@@ -92,7 +92,6 @@ class App extends React.Component {
     }
     updatedCart.push(course);
     this.setState({ cart: updatedCart });  //override the original cart
-    console.log(course);
   }
 
   removeCourseCart(course) {
@@ -116,9 +115,6 @@ class App extends React.Component {
     this.setState({ completedRating: updatedCart, }, () => {
       this.setState({ ratingCount: this.state.completedCourses.length - this.state.completedRating.length });
     });
-
-    // this.componentDidUpdate();  Ask here?
-    console.log(updatedCart);
   }
 
   render() {

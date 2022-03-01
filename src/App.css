@@ -1,4 +1,4 @@
-/* .sidebar {
+.sidebar {
   width: calc(20vw - 5px);
   margin-left: 5px;
   height: calc(100vh - 10px);
@@ -17,4 +17,4 @@
 
 .rating {
   font-weight: 700;
-} */
+}
