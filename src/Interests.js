@@ -10,22 +10,32 @@ class Interests extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      likePressed: '',
+      likePressed: false,
       likeStyle: 'btn-btn-info',
-      
     }
     this.pressed = this.pressed.bind(this);
+    this.addRecommender = this.addRecommender.bind(this);
   }
+
+
+  addRecommender()
+  {
+    this.props.addRecommender(this.props.name);
+    // console.log(this.props.name);
+  }
+
 
   pressed() {
     this.state.likePressed
-    ? this.setState({ likeStyle: 'danger' })
-    : this.setState({ likeStyle: 'primary' });
+    ? this.setState({ likeStyle: 'light' })
+    : this.setState({ likeStyle: 'primary' }, () => { 
+      this.addRecommender()
+    });
   this.state.likePressed
     ? this.setState({ likePressed: false })
     : this.setState({ likePressed: true });
 
-    console.log(this.props.name);
+    // console.log(this.props.name);
   }
   
   render() {
@@ -41,4 +51,3 @@ class Interests extends Component {
 }
 
 export default Interests;
-

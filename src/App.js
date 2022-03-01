@@ -24,12 +24,13 @@ class App extends React.Component {
       cart: [], // The list of added courses to cart
       completedRating: [],
       ratingCount: 'Course',
-      interestsTags: [],
+      interestsTags: [], // All unique values of keywords in each course
+      recommendedCourses: [],
     };
     this.addCourseCart = this.addCourseCart.bind(this);
     this.removeCourseCart = this.removeCourseCart.bind(this);
     this.rating = this.rating.bind(this);
-    this.getInterests = this.getInterests.bind(this);
+    this.addRecommender = this.addRecommender.bind(this);
   }
 
   /**
@@ -57,7 +58,7 @@ class App extends React.Component {
         }
         interestsCollections.sort();
         this.setState({ interestsTags: interestsCollections, }, () => {
-          console.log(this.state.interestsTags)
+          // console.log(this.state.interestsTags)
         });
       })
       .catch((err) => console.log(err));
@@ -134,8 +135,19 @@ class App extends React.Component {
     });
   }
 
-  getInterests() {
-    console.log(this.state.interestsTags);
+  //input keyword and search all courses wih this keyword and push to recommendedCourses array
+  addRecommender(tagName) {
+    console.log(tagName);
+    let updatedRecommender = [...this.state.recommendedCourses]; //copy the original Cart
+    for (let i = 0; i < this.state.allCourses.length; i++) {
+      for (let j = 0; j < this.state.allCourses[i].keywords.length; j++) {
+        if (this.state.allCourses[i].keywords[j] === tagName) {
+          updatedRecommender.push(this.state.allCourses[i]);
+        }
+      }
+    }
+    let noDuplicateRecommender = [...new Set(updatedRecommender)];
+    this.setState({ recommendedCourses: noDuplicateRecommender }); 
   }
 
   render() {
@@ -197,8 +209,8 @@ class App extends React.Component {
               />
 
             </div>
+            {/* Interests Tab */}
           </Tab>
-
           <Tab eventKey="interests" title={"Interests"} style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
               {/* Put your component for the completed courses feature here. */}
@@ -206,6 +218,22 @@ class App extends React.Component {
 
               <InterestsArea
                 interestsTags={this.state.interestsTags}
+                addRecommender={this.addRecommender}
+              />
+
+            </div>
+          </Tab>
+
+          {/* Course Recommender  */}
+          <Tab eventKey="recommnder" title="Recommended Courses" style={{ paddingTop: "5vh" }}>
+            <div style={{ marginLeft: "5vw" }}>
+              {/* Put your component for the cart feature here. */}
+              {/* Or, can you think of a way to reuse the CourseArea component?  */}
+
+              <Cart data={this.state.cart}
+                // addRecommender={this.addRecommender}
+                // removeCart={this.removeCourseCart}
+                compactMode={false}
               />
 
             </div>

@@ -15,7 +15,11 @@ class InterestsArea extends Component {
   getInterests() {
     const tags = this.props.interestsTags.map((tag) => {
       return <div>
-        <Interests key={tag} name={tag} />
+        <Interests
+          key={tag}
+          name={tag} 
+          addRecommender={this.props.addRecommender} 
+          />
       </div>;
     });
 
