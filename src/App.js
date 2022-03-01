@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import CourseArea from "./CourseArea";
 import Cart from "./Cart";
 import Completed from "./Completed";
+import InterestsArea from "./InterestsArea";
 
 
 /**
@@ -23,10 +24,12 @@ class App extends React.Component {
       cart: [], // The list of added courses to cart
       completedRating: [],
       ratingCount: 'Course',
+      interestsTags: [],
     };
     this.addCourseCart = this.addCourseCart.bind(this);
     this.removeCourseCart = this.removeCourseCart.bind(this);
     this.rating = this.rating.bind(this);
+    this.getInterests = this.getInterests.bind(this);
   }
 
   /**
@@ -44,6 +47,18 @@ class App extends React.Component {
           filteredCourses: data,
           subjects: this.getSubjects(data),
         });
+        let interestsCollections = [];
+        for (let i = 0; i < data.length; i++) {
+          for (let j = 0; j < data[i].keywords.length; j++) {
+            if (!interestsCollections.includes(data[i].keywords[j])) {
+              interestsCollections.push(data[i].keywords[j]);
+            }
+          }
+        }
+        interestsCollections.sort();
+        this.setState({ interestsTags: interestsCollections, }, () => {
+          console.log(this.state.interestsTags)
+        });
       })
       .catch((err) => console.log(err));
 
@@ -55,7 +70,7 @@ class App extends React.Component {
         // as a list of course numbers, not course objects.
         this.setState({
           completedCourses: data.data,
-          ratingCount:  data.data.length,
+          ratingCount: data.data.length,
         });
       })
       .catch((err) => console.log(err));
@@ -91,6 +106,7 @@ class App extends React.Component {
       }
     }
     updatedCart.push(course);
+    console.log(course);
     this.setState({ cart: updatedCart });  //override the original cart
   }
 
@@ -111,17 +127,22 @@ class App extends React.Component {
       rating: course.rating,
     });
 
+
     //https://stackoverflow.com/questions/36085726/why-is-setstate-in-reactjs-async-instead-of-sync
     this.setState({ completedRating: updatedCart, }, () => {
       this.setState({ ratingCount: this.state.completedCourses.length - this.state.completedRating.length });
     });
   }
 
+  getInterests() {
+    console.log(this.state.interestsTags);
+  }
+
   render() {
     return (
       <>
         <Tabs
-          defaultActiveKey="search"
+          defaultActiveKey="interests"
           style={{
             position: "fixed",
             zIndex: 1,
@@ -173,6 +194,18 @@ class App extends React.Component {
                 allData={this.state.allCourses}
                 compactMode={true}
                 rating={this.rating}
+              />
+
+            </div>
+          </Tab>
+
+          <Tab eventKey="interests" title={"Interests"} style={{ paddingTop: "5vh" }}>
+            <div style={{ marginLeft: "5vw" }}>
+              {/* Put your component for the completed courses feature here. */}
+              {/* Or, can you think of a way to reuse the CourseArea component? */}
+
+              <InterestsArea
+                interestsTags={this.state.interestsTags}
               />
 
             </div>
