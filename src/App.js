@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
+import Alert from 'react-bootstrap/Alert';
 import Sidebar from "./Sidebar";
 import CourseArea from "./CourseArea";
 import Cart from "./Cart";
@@ -103,6 +104,16 @@ class App extends React.Component {
   }
 
   addCourseCart(course) {
+    // check the Requisite
+    let meetRequisite = true;
+    for (let i = 0; i < course.requisites.length; i++) {
+      let result = this.state.completedCourses.some(j => course.requisites[i].includes(j));
+      if (result === false) {
+        alert("Course Added, but you do not meet the following Requisite: \n" + course.requisites[i]);
+        meetRequisite = false;
+      }
+    }
+    ////
     let updatedCart = [...this.state.cart]; //copy the original Cart
     for (let i = 0; i < updatedCart.length; i++) {
       if (updatedCart[i].number === course.number) {
@@ -129,7 +140,6 @@ class App extends React.Component {
       name: course.name,
       rating: course.rating,
     });
-
 
     //https://stackoverflow.com/questions/36085726/why-is-setstate-in-reactjs-async-instead-of-sync
     this.setState({ completedRating: updatedCart, }, () => {
