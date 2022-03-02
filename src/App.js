@@ -110,7 +110,6 @@ class App extends React.Component {
       }
     }
     updatedCart.push(course);
-    console.log(course);
     this.setState({ cart: updatedCart });  //override the original cart
   }
 
@@ -166,7 +165,6 @@ class App extends React.Component {
 
   updateRecommendCourses() {
     let updatedRecommender = []; //copy the original Cart
-    console.log(this.state.selectedLikes);
     for (let i = 0; i < this.state.allCourses.length; i++) {
       for (let j = 0; j < this.state.selectedLikes.length; j++) {
         if (this.state.allCourses[i].keywords.includes(this.state.selectedLikes[j])) {
@@ -181,7 +179,7 @@ class App extends React.Component {
     return (
       <>
         <Tabs
-          defaultActiveKey="interests"
+          defaultActiveKey="search"
           style={{
             position: "fixed",
             zIndex: 1,

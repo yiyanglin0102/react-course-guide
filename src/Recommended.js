@@ -15,12 +15,12 @@ class Recommended extends Component {
 
   getCourses() {
     const courses = this.props.data.map((course) => {
-      return <div>
+      return <Card>
         <RecommendCourse
           key={course.name}
           data={course}
           compactMode={this.props.compactMode} />
-      </div>;
+      </Card>;
     });
 
     return courses;

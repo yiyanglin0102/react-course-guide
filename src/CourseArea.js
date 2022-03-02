@@ -17,18 +17,18 @@ class CourseArea extends Component {
     // 1. Declarative way of returning the courses, using .map().
     // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map for more details.
     const courses = this.props.data.map((course) => {
-      return <div>
-        <Button
+      return <Card>
+        <Button variant='info'
           onClick={() => this.props.addCart(course)}
         >Add to Cart</Button>
-        <Button
+        <Button variant='secondary'
           onClick={() => this.props.removeCart(course)}
         >Remove from Cart</Button>
         <Course
           key={course.name}
           data={course}
           compactMode={this.props.compactMode} />
-      </div>;
+      </Card>;
     });
 
     // 2. Imperative way of returning the courses, using for ... of iteration and .push().

@@ -19,13 +19,13 @@ class Subsection extends React.Component {
   }
 
   getDis(section, choice) {
-    var discussions = section[choice].subsections;
-    return Object.keys(discussions).map((key, index) => {
+    var disc = section[choice].subsections;
+    return Object.keys(disc).map((key, index) => {
       return (
         <tr key={this.props.data.number + choice + key + index}>
-          <td >{discussions[key].number}</td>
-          <td >{discussions[key].location}</td>
-          <td >{Object.entries(discussions[key].time).join(" ; ")}</td>
+          <td >{disc[key].number}</td>
+          <td >{disc[key].location}</td>
+          <td >{Object.entries(disc[key].time).join(" ; ")}</td>
         </tr>
       )
     })
@@ -33,9 +33,8 @@ class Subsection extends React.Component {
   render() {
     return <div>
       {!this.props.compactMode && <div>
-        <h5>Discussions</h5>
+        <h5>Subsections</h5>
         <table>
-
           {this.renderTableData()}
         </table>
       </div>}

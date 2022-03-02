@@ -15,7 +15,7 @@ class Cart extends React.Component {
     // console.log(this.props.data);
     const courses = this.props.data.map((course) => {
       return <div>
-        <Button
+        <Button variant='secondary'
           onClick={() => this.props.removeCart(course)}
         >Remove from Cart</Button>
         <Course

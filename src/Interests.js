@@ -45,11 +45,11 @@ class Interests extends Component {
   render() {
 
     return (
-      <div>
+      <Card>
         <Button variant={this.state.likeStyle}
           onClick={this.pressed.bind(this)}
         >{this.props.name}</Button>
-      </div>
+      </Card>
     )
   }
 }

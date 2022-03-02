@@ -45,25 +45,24 @@ class Section extends Component {
           <h5>Requisites</h5>
           <div>{this.requisiteConvert()}</div>
           <h5>Keywords</h5>
-          <div>{this.props.data.keywords.map((keyword) => <li>{keyword}</li>)}</div>
+          <div>{this.props.data.keywords.join(", ")}</div>
           <h5>Sections</h5>
           <div>{this.props.data.sections.map((section) =>
             <div>
-              <h4>{section.number}</h4>
-             
-                <li>Instructor: {section.instructor}
-                </li>
-                <li>Location: {section.location}
-                </li>
-                <li>Meeting Time</li>
-                <ul>
+              <h6>{section.number}</h6>
+
+              <li>Instructor: {section.instructor}
+              </li>
+              <li>Location: {section.location}
+              </li>
+              <li>Meeting Time</li>
+              <ul>
                 <table>
-                  <li>{section.location}</li>
-                  <li>{Object.keys(section.time).join(" ")}</li>
-                  <li>{Object.values(section.time).join(" ")}</li>
-                  </table>
-                </ul>
-             
+                  <li style={{ listStyleType: "none" }}>{Object.keys(section.time).join(" ")}</li>
+                  <li style={{ listStyleType: "none" }}>{Object.values(section.time).join(" ")}</li>
+                </table>
+              </ul>
+
             </div>
           )}</div>
 
