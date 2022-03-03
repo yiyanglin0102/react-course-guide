@@ -6,8 +6,7 @@ import Button from 'react-bootstrap/Button';
 class Cart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    }
+    this.state = {}
   }
 
   getCourses() {

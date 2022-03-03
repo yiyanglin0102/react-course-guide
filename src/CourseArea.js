@@ -8,33 +8,34 @@ import Button from 'react-bootstrap/Button';
 class CourseArea extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      addPressed: false,
-    }
+    this.state = {}
   }
 
   getCourses() {
     // 1. Declarative way of returning the courses, using .map().
     // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map for more details.
     const courses = this.props.data.map((course) => {
-      return <Card>
-        <Button variant='info'
-          onClick={() => this.props.addCart(course)}
-        >Add to Cart</Button>
-        <Button variant='secondary'
-          onClick={() => this.props.removeCart(course)}
-        >Remove from Cart</Button>
+      return <div>
+
         <Course
           key={course.name}
           data={course}
           compactMode={this.props.compactMode} />
-      </Card>;
+
+        <Button variant='info' className="btn btn-outline-light"
+          onClick={() => this.props.addCart(course)}
+        >Add to Cart</Button>
+        <Button variant='light' className="btn btn-outline-danger"
+          onClick={() => this.props.removeCart(course)}
+        >Remove from Cart</Button>
+        <Card>
+        </Card>
+      </div>;
     });
 
     // 2. Imperative way of returning the courses, using for ... of iteration and .push().
     // To use this instead, uncomment the following code and comment the above code.
     // let courses = [];
-
     // for(const course of this.props.data) {
     //   courses.push (
     //     <Course key={course.name} data={course}/>

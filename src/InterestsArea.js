@@ -23,13 +23,12 @@ class InterestsArea extends Component {
           />
       </div>;
     });
-
     return tags;
   }
 
   render() {
 
-    return <div>{this.getInterests()}</div>;
+    return <div className="text-center">{this.getInterests()}</div>;
   }
 }
 export default InterestsArea;

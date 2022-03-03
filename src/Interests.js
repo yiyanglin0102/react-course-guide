@@ -11,7 +11,7 @@ class Interests extends Component {
     super(props);
     this.state = {
       likePressed: false,
-      likeStyle: 'btn-btn-info',
+      likeStyle: "btn btn-outline-success",
     }
     this.pressed = this.pressed.bind(this);
     this.addRecommender = this.addRecommender.bind(this);
@@ -29,10 +29,10 @@ class Interests extends Component {
 
   pressed() {
     this.state.likePressed
-      ? this.setState({ likeStyle: 'light' }, () => {
+      ? this.setState({ likeStyle:  "btn btn-outline-light" }, () => {
         this.removeRecommender()
       })
-      : this.setState({ likeStyle: 'primary' }, () => {
+      : this.setState({ likeStyle: 'success' }, () => {
         this.addRecommender()
       });
     this.state.likePressed
@@ -45,11 +45,11 @@ class Interests extends Component {
   render() {
 
     return (
-      <Card>
+      <>
         <Button variant={this.state.likeStyle}
           onClick={this.pressed.bind(this)}
         >{this.props.name}</Button>
-      </Card>
+      </>
     )
   }
 }

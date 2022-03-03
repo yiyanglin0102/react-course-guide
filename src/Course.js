@@ -18,11 +18,11 @@ class Course extends Component {
       Button3Pressed: false,
       Button4Pressed: false,
       Button5Pressed: false,
-      Button1Style: 'btn-btn-primary',
-      Button2Style: 'btn-btn-primary',
-      Button3Style: 'btn-btn-primary',
-      Button4Style: 'btn-btn-primary',
-      Button5Style: 'btn-btn-primary',
+      Button1Style: "btn btn-outline-light", 
+      Button2Style: "btn btn-outline-light",
+      Button3Style: "btn btn-outline-light",
+      Button4Style: "btn btn-outline-light",
+      Button5Style: "btn btn-outline-light",
     }
     this.setRating1 = this.setRating1.bind(this);
     this.setRating2 = this.setRating2.bind(this);
@@ -39,7 +39,7 @@ class Course extends Component {
     ///https://stackoverflow.com/questions/36085726/why-is-setstate-in-reactjs-async-instead-of-sync
     this.setState({ Button1Pressed: true, Button2Pressed: false, Button3Pressed: false, Button4Pressed: false, Button5Pressed: false, }, () => {
       this.state.Button1Pressed
-        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-primary', Button3Style: 'btn btn-primary', Button4Style: 'btn btn-primary', Button5Style: 'btn btn-primary' })
+        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: "btn btn-outline-light", Button3Style: "btn btn-outline-light", Button4Style: "btn btn-outline-light", Button5Style: "btn btn-outline-light" })
         : this.setState();
     });
   }
@@ -50,7 +50,7 @@ class Course extends Component {
 
     this.setState({ Button1Pressed: false, Button2Pressed: true, Button3Pressed: false, Button4Pressed: false, Button5Pressed: false, }, () => {
       this.state.Button2Pressed
-        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: 'btn btn-primary', Button4Style: 'btn btn-primary', Button5Style: 'btn btn-primary' })
+        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: "btn btn-outline-light", Button4Style: "btn btn-outline-light", Button5Style: "btn btn-outline-light" })
         : this.setState();
     });
   }
@@ -61,7 +61,7 @@ class Course extends Component {
 
     this.setState({ Button1Pressed: false, Button2Pressed: false, Button3Pressed: true, Button4Pressed: false, Button5Pressed: false, }, () => {
       this.state.Button3Pressed
-        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: 'btn btn-danger', Button4Style: 'btn btn-primary', Button5Style: 'btn btn-primary' })
+        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: 'btn btn-danger', Button4Style: "btn btn-outline-light", Button5Style: "btn btn-outline-light" })
         : this.setState();
     });
   }
@@ -72,7 +72,7 @@ class Course extends Component {
   
     this.setState({ Button1Pressed: false, Button2Pressed: false, Button3Pressed: false, Button4Pressed: true, Button5Pressed: false, }, () => {
       this.state.Button4Pressed
-        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: 'btn btn-danger', Button4Style: 'btn btn-danger', Button5Style: 'btn btn-primary' })
+        ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: 'btn btn-danger', Button4Style: 'btn btn-danger', Button5Style: "btn btn-outline-light" })
         : this.setState();
     });
   }

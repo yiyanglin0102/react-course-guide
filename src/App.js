@@ -149,13 +149,9 @@ class App extends React.Component {
 
   //input keyword and search all courses wih this keyword and push to recommendedCourses array
   addRecommender(tagName) {
-
     let updatedLikes = [...this.state.selectedLikes];
-
     updatedLikes.push(tagName);
     updatedLikes = [...new Set(updatedLikes)];
-
-
     this.setState({ selectedLikes: updatedLikes }, () => {
       this.updateRecommendCourses();
     });
@@ -167,7 +163,6 @@ class App extends React.Component {
     updatedLikes = updatedLikes.filter(function (item) {
       return item !== tagName
     })
-    // console.log(updatedLikes);
     this.setState({ selectedLikes: updatedLikes }, () => {
       this.updateRecommendCourses();
     });
@@ -197,6 +192,7 @@ class App extends React.Component {
             backgroundColor: "#313854",
           }}
         >
+        
           {/* Search Tab */}
           <Tab eventKey="search" title="Search" style={{ paddingTop: "5vh" }}>
             <Sidebar
@@ -219,25 +215,17 @@ class App extends React.Component {
           {/* Cart Tab */}
           <Tab eventKey="cart" title="Cart" style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
-              {/* Put your component for the cart feature here. */}
-              {/* Or, can you think of a way to reuse the CourseArea component?  */}
-
-              <Cart data={this.state.cart}
-                // addCart={this.addCourseCart}
+             <Cart data={this.state.cart}
                 removeCart={this.removeCourseCart}
                 compactMode={false}
                 recommenderMode={false}
               />
-
             </div>
           </Tab>
 
           {/* Completed Courses Tab */}
           <Tab eventKey="completedCourses" title={"Completed Courses (" + (this.state.ratingCount) + " needs rating)"} style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
-              {/* Put your component for the completed courses feature here. */}
-              {/* Or, can you think of a way to reuse the CourseArea component? */}
-
               <Completed
                 completedData={this.state.completedCourses}
                 allData={this.state.allCourses}
@@ -245,15 +233,12 @@ class App extends React.Component {
                 recommenderMode={false}
                 rating={this.rating}
               />
-
             </div>
+
             {/* Interests Tab */}
           </Tab>
           <Tab eventKey="interests" title={"Interests"} style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
-              {/* Put your component for the completed courses feature here. */}
-              {/* Or, can you think of a way to reuse the CourseArea component? */}
-
               <InterestsArea
                 interestsTags={this.state.interestsTags}
                 addRecommender={this.addRecommender}
@@ -266,18 +251,13 @@ class App extends React.Component {
           {/* Course Recommender  */}
           <Tab eventKey="recommnder" title="Recommended Courses" style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
-              {/* Put your component for the cart feature here. */}
-              {/* Or, can you think of a way to reuse the CourseArea component?  */}
-
               <Recommended
                 data={this.state.recommendedCourses}
                 compactMode={true}
                 recommenderMode={true}
               />
-
             </div>
           </Tab>
-
         </Tabs>
       </>
     );
