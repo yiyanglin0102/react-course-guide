@@ -31,8 +31,8 @@ class Section extends Component {
   render() {
     return <div>
       <div>
-        {!this.props.compactMode && <h3>{this.props.data.number} - </h3>}
-        <h2>{this.props.data.name}</h2>
+        <h3>{this.props.data.number} - </h3>
+        <h3>{this.props.data.name}</h3>
         <h5>Credits</h5>
         <div>{this.props.data.credits}</div>
         <h5>Subject</h5>

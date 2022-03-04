@@ -40,7 +40,7 @@ class Subsection extends React.Component {
   }
   render() {
     return <div>
-      {!this.props.compactMode &&
+      {!this.props.compactMode && 
         <>
           <Button className="btn btn-outline-light" variant="dark" onClick={() => { this.setState({ show: true }) }}>
             <h6>Show Subsections</h6>

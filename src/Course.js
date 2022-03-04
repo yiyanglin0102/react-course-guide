@@ -4,7 +4,6 @@ import Section from './Section';
 import Subsection from './Subsection';
 
 import Card from 'react-bootstrap/Card';
-import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
 class Course extends Component {
@@ -18,7 +17,7 @@ class Course extends Component {
       Button3Pressed: false,
       Button4Pressed: false,
       Button5Pressed: false,
-      Button1Style: "btn btn-outline-light", 
+      Button1Style: "btn btn-outline-light",
       Button2Style: "btn btn-outline-light",
       Button3Style: "btn btn-outline-light",
       Button4Style: "btn btn-outline-light",
@@ -69,7 +68,7 @@ class Course extends Component {
     this.setState({ rating: 4, });
     this.props.data.rating = 4;
     this.props.rating(this.props.data);
-  
+
     this.setState({ Button1Pressed: false, Button2Pressed: false, Button3Pressed: false, Button4Pressed: true, Button5Pressed: false, }, () => {
       this.state.Button4Pressed
         ? this.setState({ Button1Style: 'btn btn-danger', Button2Style: 'btn btn-danger', Button3Style: 'btn btn-danger', Button4Style: 'btn btn-danger', Button5Style: "btn btn-outline-light" })
@@ -94,23 +93,23 @@ class Course extends Component {
       <Card>
         <Section data={this.props.data} compactMode={this.props.compactMode} />
         <Subsection data={this.props.data} compactMode={this.props.compactMode} />
-        {this.props.compactMode && <>
-          <h5>Rating: {typeof(this.state.rating)==="number"? <div>{this.state.rating + " Stars"}</div> : <div>Not Rated</div> }</h5>
+        {(this.props.compactMode && this.props.ratingMode) && <>
+          <h5>Rating: {typeof (this.state.rating) === "number" ? <div>{this.state.rating + " Stars"}</div> : <div>Not Rated</div>}</h5>
           <div><Button className={this.state.Button1Style}
             onClick={this.setRating1.bind(this)}
           >★</Button>
-          <Button className={this.state.Button2Style}
-            onClick={this.setRating2.bind(this)}
-          >★</Button>
-          <Button className={this.state.Button3Style}
-            onClick={this.setRating3.bind(this)}
-          >★</Button>
-          <Button className={this.state.Button4Style}
-            onClick={this.setRating4.bind(this)}
-          >★</Button>
-          <Button className={this.state.Button5Style}
-            onClick={this.setRating5.bind(this)}
-          >★</Button></div>
+            <Button className={this.state.Button2Style}
+              onClick={this.setRating2.bind(this)}
+            >★</Button>
+            <Button className={this.state.Button3Style}
+              onClick={this.setRating3.bind(this)}
+            >★</Button>
+            <Button className={this.state.Button4Style}
+              onClick={this.setRating4.bind(this)}
+            >★</Button>
+            <Button className={this.state.Button5Style}
+              onClick={this.setRating5.bind(this)}
+            >★</Button></div>
         </>}
       </Card>
     )

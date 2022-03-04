@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import Course from './Course';
-import Card from 'react-bootstrap/Card';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
 
 class Completed extends Component {
   constructor(props) {
@@ -39,6 +36,7 @@ class Completed extends Component {
             key={course.name}
             data={course}
             compactMode={this.props.compactMode} 
+            ratingMode={this.props.ratingMode}
             rating={this.props.rating} 
             />
       )

@@ -11,15 +11,13 @@ class Cart extends React.Component {
   }
 
   getCourses() {
-    // console.log("Cart have these courses: ");
-    // console.log(this.props.data);
     const courses = this.props.data.map((course) => {
       return <Card>
         <Course
-          ShowAdd={true}
           key={course.name}
           data={course}
-          compactMode={this.props.compactMode} />
+          compactMode={this.props.compactMode}
+          ratingMode={this.props.ratingMode} />
         <Button className="btn btn-outline-danger" variant='light'
           onClick={() => this.props.removeCart(course)}
         >Remove from Cart</Button>
@@ -31,7 +29,6 @@ class Cart extends React.Component {
   render() {
     return <div>{this.getCourses()}</div>;
   }
-
 }
 
 export default Cart;
