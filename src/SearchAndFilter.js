@@ -8,26 +8,34 @@
 class SearchAndFilter {
 
   searchAndFilter(courses, search, subject, minimumCredits, maximumCredits) {
+
+    let search1 = search.toLowerCase().trim();
+    
     if (minimumCredits === '') {
       minimumCredits = 0;
     }
     if (maximumCredits === '') {
-      maximumCredits = 100;
+      maximumCredits = 1000;
     }
+
     let collections = []
 
     for (let i = 0; i < Object.keys(courses).length; i++) {
       let check = false;
-
-      if (courses[i].number.includes(search)) {
+      let courseNumber = courses[i].number.toLowerCase();
+      let courseDisciption = courses[i].description.toLowerCase();
+      let courseKeywords = courses[i].keywords.map(element => {
+        return element.toLowerCase();
+      });
+      if (courseNumber.includes(search1)) {
         check = true;
       }
-      else if (courses[i].description.includes(search)) {
+      else if (courseDisciption.includes(search1)) {
         check = true;
       }
       else if (!check) {
-        for (let j = 0; j < courses[i].keywords.length; j++) {
-          if (courses[i].keywords[j].includes(search)) {
+        for (let j = 0; j < courseKeywords.length; j++) {
+          if (courseKeywords[j].includes(search1)) {
             check = true;
           }
         }
