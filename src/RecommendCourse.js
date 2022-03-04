@@ -3,10 +3,6 @@ import './App.css';
 import Section from './Section';
 import Subsection from './Subsection';
 
-import Card from 'react-bootstrap/Card';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-
 class RecommendCourse extends Component {
 
   constructor(props) {

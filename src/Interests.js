@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Card from 'react-bootstrap/Card';
-import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
 class Interests extends Component {

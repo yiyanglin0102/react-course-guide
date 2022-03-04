@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import Card from 'react-bootstrap/Card';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
 import Interests from './Interests';
 
 class InterestsArea extends Component {
@@ -27,7 +24,6 @@ class InterestsArea extends Component {
   }
 
   render() {
-
     return <div className="text-center">{this.getInterests()}</div>;
   }
 }

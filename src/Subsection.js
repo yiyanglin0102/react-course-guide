@@ -14,7 +14,12 @@ class Subsection extends React.Component {
     let sections = this.props.data.sections;
     return Object.keys(sections).map((key, index) => {
       return (
-        <div>
+        <div style={{
+          fontSize: "18px",
+          textTransform: "capitalize",
+          display: "inline - block",
+          margin: "4px 2px",
+        }}>
           {this.getDis(sections, key)}
         </div>
       )

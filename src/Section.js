@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
@@ -12,7 +11,6 @@ class Section extends Component {
       secShow: false,
     }
   }
-
 
   requisiteConvert() {
     if (this.props.data.requisites.length === 0) {
@@ -29,7 +27,6 @@ class Section extends Component {
     }
     return outterArray.join(' AND ');
   }
-
 
   render() {
     return <div>
@@ -49,58 +46,45 @@ class Section extends Component {
           <div>{this.requisiteConvert()}</div>
           <h5>Keywords</h5>
           <div>{this.props.data.keywords.join(", ")}</div>
-          
+
           <Button className="btn btn-outline-light" variant="dark" onClick={() => { this.setState({ secShow: true }) }}>
             <h6>Show Sections</h6>
           </Button>
-          
+
           <Modal
             show={this.state.secShow}
             onHide={() => this.setState({ secShow: false })}
           >
             <Modal.Header closeButton>
               <Modal.Title id="section-modal">
-             <h5>Sections</h5>
+                <h5>Sections</h5>
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              
-          <div>{this.props.data.sections.map((section) =>
-            <div>
-              <h6>{section.number}</h6>
+              <div style={{
+                fontSize: "18px",
+                textTransform: "capitalize",
+                display: "inline - block",
+                margin: "4px 2px",
+              }}>{this.props.data.sections.map((section) =>
+                <div>
+                  <h6>{section.number}</h6>
+                  <li>Instructor: {section.instructor}
+                  </li>
+                  <li>Location: {section.location}
+                  </li>
+                  <li>Meeting Time</li>
+                  <ul>
+                    <table>
+                      <li style={{ listStyleType: "none" }}>{Object.keys(section.time).join(" ")}</li>
+                      <li style={{ listStyleType: "none" }}>{Object.values(section.time).join(" ")}</li>
+                    </table>
+                  </ul>
 
-              <li>Instructor: {section.instructor}
-              </li>
-              <li>Location: {section.location}
-              </li>
-              <li>Meeting Time</li>
-              <ul>
-                <table>
-                  <li style={{ listStyleType: "none" }}>{Object.keys(section.time).join(" ")}</li>
-                  <li style={{ listStyleType: "none" }}>{Object.values(section.time).join(" ")}</li>
-                </table>
-              </ul>
-
-            </div>
-          )}</div>
-
-
-
-
-
-
+                </div>
+              )}</div>
             </Modal.Body>
           </Modal>
-
-
-
-          
-
-
-
-
-
-
         </div>}
         <div>
         </div>
