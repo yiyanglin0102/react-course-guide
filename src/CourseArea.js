@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Course from "./Course";
+import SearchCourse from "./SearchCourse";
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
@@ -14,23 +14,22 @@ class CourseArea extends Component {
   getCourses() {
     // 1. Declarative way of returning the courses, using .map().
     // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map for more details.
-    const courses = this.props.data.map((course) => {
-      return <div>
+    let i = 0;
 
-        <Course
-          key={course.name}
+    const courses = this.props.data.map((course) => {
+      return <Card>
+        <SearchCourse
           data={course}
           compactMode={this.props.compactMode} />
-
-        <Button variant='info' className="btn btn-outline-light"
-          onClick={() => this.props.addCart(course)}
-        >Add to Cart</Button>
-        <Button variant='light' className="btn btn-outline-danger"
-          onClick={() => this.props.removeCart(course)}
-        >Remove from Cart</Button>
-        <Card>
-        </Card>
-      </div>;
+        <div>
+          <Button variant='info' className="btn btn-outline-light"
+            onClick={() => this.props.addCart(course)}
+          >Add to Cart</Button>
+          <Button variant='light' className="btn btn-outline-danger"
+            onClick={() => this.props.removeCart(course)}
+          >Remove from Cart</Button>
+        </div>
+      </Card>;
     });
 
     // 2. Imperative way of returning the courses, using for ... of iteration and .push().

@@ -1,6 +1,7 @@
 import React from 'react';
 import Course from './Course';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 
 class Cart extends React.Component {
@@ -13,16 +14,16 @@ class Cart extends React.Component {
     // console.log("Cart have these courses: ");
     // console.log(this.props.data);
     const courses = this.props.data.map((course) => {
-      return <div>
-        <Button variant='secondary'
-          onClick={() => this.props.removeCart(course)}
-        >Remove from Cart</Button>
+      return <Card>
         <Course
           ShowAdd={true}
           key={course.name}
           data={course}
           compactMode={this.props.compactMode} />
-      </div>;
+        <Button className="btn btn-outline-danger" variant='light'
+          onClick={() => this.props.removeCart(course)}
+        >Remove from Cart</Button>
+      </Card>;
     });
     return courses;
   }

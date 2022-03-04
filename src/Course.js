@@ -91,12 +91,12 @@ class Course extends Component {
   render() {
 
     return (
-      <div>
+      <Card>
         <Section data={this.props.data} compactMode={this.props.compactMode} />
         <Subsection data={this.props.data} compactMode={this.props.compactMode} />
         {this.props.compactMode && <>
           <h5>Rating: {typeof(this.state.rating)==="number"? <div>{this.state.rating + " Stars"}</div> : <div>Not Rated</div> }</h5>
-          <Button className={this.state.Button1Style}
+          <div><Button className={this.state.Button1Style}
             onClick={this.setRating1.bind(this)}
           >★</Button>
           <Button className={this.state.Button2Style}
@@ -110,9 +110,9 @@ class Course extends Component {
           >★</Button>
           <Button className={this.state.Button5Style}
             onClick={this.setRating5.bind(this)}
-          >★</Button>
+          >★</Button></div>
         </>}
-      </div>
+      </Card>
     )
   }
 }

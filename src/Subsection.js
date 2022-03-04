@@ -1,10 +1,13 @@
 import React from "react";
 import "./App.css";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 class Subsection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      show: false,
     }
   }
   renderTableData() {
@@ -32,12 +35,31 @@ class Subsection extends React.Component {
   }
   render() {
     return <div>
-      {!this.props.compactMode && <div>
-        <h5>Subsections</h5>
-        <table>
-          {this.renderTableData()}
-        </table>
-      </div>}
+      {!this.props.compactMode &&
+        <>
+          <Button className="btn btn-outline-light" variant="dark" onClick={() => { this.setState({ show: true }) }}>
+            <h6>Show Subsections</h6>
+          </Button>
+
+          <Modal
+            show={this.state.show}
+            onHide={() => this.setState({ show: false })}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="subsection-modal">
+                <h5>Subsections</h5>
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div>
+                <table>
+                  {this.renderTableData()}
+                </table>
+              </div>
+            </Modal.Body>
+          </Modal>
+        </>
+      }
     </div>;
   }
 }

@@ -11,19 +11,14 @@ class RecommendCourse extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-
-    }
-
+    this.state = {}
   }
 
   render() {
-
     return (
       <div>
-        <Section data={this.props.data} compactMode={this.props.compactMode} />
-        <Subsection data={this.props.data} compactMode={this.props.compactMode} />
-
+        <Section key={this.props.data.name + " recommendSec"} data={this.props.data} compactMode={this.props.compactMode} />
+        <Subsection key={this.props.data.name + " recommendSub"} data={this.props.data} compactMode={this.props.compactMode} />
       </div>
     )
   }

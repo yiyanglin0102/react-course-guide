@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import "./App.css";
-import Subsection from "./Subsection.js";
+
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 class Section extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      secShow: false,
     }
   }
 
@@ -46,7 +49,22 @@ class Section extends Component {
           <div>{this.requisiteConvert()}</div>
           <h5>Keywords</h5>
           <div>{this.props.data.keywords.join(", ")}</div>
-          <h5>Sections</h5>
+          
+          <Button className="btn btn-outline-light" variant="dark" onClick={() => { this.setState({ secShow: true }) }}>
+            <h6>Show Sections</h6>
+          </Button>
+          
+          <Modal
+            show={this.state.secShow}
+            onHide={() => this.setState({ secShow: false })}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="section-modal">
+             <h5>Sections</h5>
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              
           <div>{this.props.data.sections.map((section) =>
             <div>
               <h6>{section.number}</h6>
@@ -65,6 +83,23 @@ class Section extends Component {
 
             </div>
           )}</div>
+
+
+
+
+
+
+            </Modal.Body>
+          </Modal>
+
+
+
+          
+
+
+
+
+
 
         </div>}
         <div>

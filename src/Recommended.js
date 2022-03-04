@@ -9,8 +9,7 @@ import RecommendCourse from './RecommendCourse'
 class Recommended extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    }
+    this.state = {}
   }
 
   getCourses() {
