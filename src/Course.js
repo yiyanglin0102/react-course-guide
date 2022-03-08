@@ -87,8 +87,44 @@ class Course extends Component {
     });
   }
 
-  render() {
+  addCart = () => {
+    // Adds the course to the cart
+    this.props.addCart(this.props.data);
+  };
 
+  removeCart(course) {
+    // Removes the course from the cart
+    this.props.removeCart(course);
+  }
+
+  getCourseButton() {
+    // Returns a button that adds/remove the course to/from the cart
+    if (!this.props.cart) {
+      return;
+    }
+    
+    let cart = this.props.cart;
+    let course = this.props.data;
+    let buttonOnClick = () => this.addCart(course);
+    let buttonText = "Add Course";
+    let name = "btn btn-outline-light";
+    let vari = "info";
+
+    if (cart.some((c) => c.number === course.number)) {
+      buttonOnClick = () => this.removeCart(course);
+      buttonText = "Remove Course";
+      name = "btn btn-outline-danger";
+      vari = "light";
+    }
+
+    return (
+      <Button className={name} variant={vari} onClick={buttonOnClick}>
+        {buttonText}
+      </Button>
+    );
+  }
+
+  render() {
     return (
       <Card>
         <Section data={this.props.data} compactMode={this.props.compactMode} />
@@ -111,6 +147,8 @@ class Course extends Component {
               onClick={this.setRating5.bind(this)}
             >★</Button></div>
         </>}
+        {this.getCourseButton()}
+
       </Card>
     )
   }

@@ -207,6 +207,7 @@ class App extends React.Component {
                 recommenderMode={false}
                 addCart={this.addCourseCart}
                 removeCart={this.removeCourseCart}
+                cart={this.state.cart}
               />
             </div>
           </Tab>
