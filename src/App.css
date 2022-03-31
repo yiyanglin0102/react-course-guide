@@ -1,13 +1,32 @@
 .sidebar {
   width: calc(20vw - 5px);
   margin-left: 5px;
-  height: calc(100vh - 10px);
+  height: calc(70vh - 50px);
   position: fixed;
+}
+
+.star {
+  color: #CE1212;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.star:hover {
+  color: #810000;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.star-disabled {
+  filter: grayscale(100%);
 }
 
 .rating {
   font-weight: 700;
 }
+
 .card {
   border-radius: 8px;
   background: #fff;
@@ -15,14 +34,80 @@
   transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
     0.3s box-shadow,
     0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
-  padding: 14px 80px 18px 36px;
+  padding: 15px 10px 30px 10px;
 }
 
 .card:hover {
   transform: scale(1.006);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
-html *
-{
+html * {
   font-family: "Gill Sans", sans-serif;
+}
+
+.btn-outline-info {
+  color: #CE1212 !important;
+  /* background-color: #CE1212 !important; */
+}
+
+.btn-outline-info:hover {
+  color: #FFE6E6 !important;
+  background-color: #CE1212 !important;
+}
+
+.btn-primary {
+  color: #FFE6E6 !important;
+  background-color: #CE1212 !important;
+}
+.nav-link.active {
+  color: #CE1212 !important;
+  background-color: "#EEEBDD" !important;
+}
+.nav-link {
+  color: white !important;
+  background-color: "#EEEBDD" !important;
+}
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+.accordion:hover {
+  background-color: #EEEBDD;
+}
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+.accordion-button:not(.collapsed) {
+  color: #fff !important;
+  background-color: #CE1212 !important;
+}
+
+.accordion-button:link,
+.accordion-button:visited,
+.accordion-button:hover,
+.accordion-button:active {
+  background-color: #CE1212 !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  border: hidden !important;
+  border-color: #fff !important;
+  box-shadow: 0px !important;
+  
+}
+
+.accordion-button:focus {
+  z-index: 3;
+  border-color: #EEEBDD !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem #EEEBDD !important;
 }

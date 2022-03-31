@@ -1,95 +1,71 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import Subsection from "./Subsection.js";
+import Accordion from 'react-bootstrap/Accordion'
 
-class Section extends Component {
+class Section extends React.Component {
+  getTimes() {
+    let times = [];
+    let sectionTimes = this.props.data.time;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      secShow: false,
-    }
+    Object.keys(sectionTimes).forEach(function (day) {
+      times.push(
+        <li key={day} style={{ listStyleType: "none" }}>
+          {day}: {sectionTimes[day]}
+        </li>
+      );
+    });
+
+    return times;
   }
 
-  requisiteConvert() {
-    if (this.props.data.requisites.length === 0) {
-      return "None";
+  getSubsections() {
+    let subsections = [];
+    let course = this.props.courseKey;
+    let section = this.props.data.number;
+    let subsectionsData = this.props.data.subsections;
+    let headingKey = [course, section].join("-");
+
+    if (subsectionsData.length > 0) {
+      subsections.push(<h5 key={headingKey} style={{ fontWeight: "bold" }}>Subsections</h5>);
+      for (const subsection of Object.values(subsectionsData)) {
+        // Check here if Cart data is present, and only push if course subsection is present
+        subsections.push(
+          <Subsection
+            key={subsection.number}
+            data={subsection}
+            courseKey={course}
+            sectionKey={section}
+            subsectionKey={subsection.number}
+          />
+        );
+      }
     }
 
-    let requisites = this.props.data.requisites;
-    let outterArray = [];
-    for (let i = 0; i < requisites.length; i++) {
-      let innerArray = "(";
-      innerArray += requisites[i].join(' OR ');
-      innerArray += ")";
-      outterArray.push(innerArray);
-    }
-    return outterArray.join(' AND ');
+    return subsections;
   }
 
   render() {
-    return <div>
-      <div>
-        <h3>{this.props.data.number} - </h3>
-        <h3>{this.props.data.name}</h3>
-        <h5>Credits</h5>
-        <div>{this.props.data.credits}</div>
-        <h5>Subject</h5>
-        <div>{this.props.data.subject}</div>
-        <h5>Description</h5>
-        <div>{this.props.data.description}</div>
+    let section = this.props.data.number;
+    let instructor = this.props.data.instructor;
+    let location = this.props.data.location;
 
-        {!this.props.compactMode && <div>
-
-          <h5>Requisites</h5>
-          <div>{this.requisiteConvert()}</div>
-          <h5>Keywords</h5>
-          <div>{this.props.data.keywords.join(", ")}</div>
-
-          <Button className="btn btn-outline-light" variant="dark" onClick={() => { this.setState({ secShow: true }) }}>
-            <h6>Show Sections</h6>
-          </Button>
-
-          <Modal
-            show={this.state.secShow}
-            onHide={() => this.setState({ secShow: false })}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="section-modal">
-                <h5>Sections</h5>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <div style={{
-                fontSize: "18px",
-                textTransform: "capitalize",
-                display: "inline - block",
-                margin: "4px 2px",
-              }}>{this.props.data.sections.map((section) =>
-                <div>
-                  <h6>{section.number}</h6>
-                  <li>Instructor: {section.instructor}
-                  </li>
-                  <li>Location: {section.location}
-                  </li>
-                  <li>Meeting Time</li>
-                  <ul>
-                    <table>
-                      <li style={{ listStyleType: "none" }}>{Object.keys(section.time).join(" ")}</li>
-                      <li style={{ listStyleType: "none" }}>{Object.values(section.time).join(" ")}</li>
-                    </table>
-                  </ul>
-
-                </div>
-              )}</div>
-            </Modal.Body>
-          </Modal>
-        </div>}
-        <div>
-        </div>
-      </div>
-    </div>;
+    return (
+      <Accordion.Item eventKey={section}>
+        <Accordion.Header>{section}</Accordion.Header>
+        <Accordion.Body>
+          <li style={{ listStyleType: "none" }}><div style={{ color: "#CE1212", fontSize: "22px", fontWeight: "bold" }}>Instructor</div>{instructor}</li>
+          <li style={{ listStyleType: "none" }}><div style={{ color: "#CE1212", fontSize: "22px", fontWeight: "bold" }}>Location</div>{location}</li>
+          <li style={{ listStyleType: "none" }}><div style={{ color: "#CE1212", fontSize: "22px", fontWeight: "bold" }}>Meeting Times</div></li>
+          <ul style={{
+            textTransform: "capitalize",
+          }}>{this.getTimes()}</ul>
+          <div style={{
+            textTransform: "capitalize",
+          }}>{this.getSubsections()}</div>
+        </Accordion.Body>
+      </Accordion.Item>
+    );
   }
 }
 

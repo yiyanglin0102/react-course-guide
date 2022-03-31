@@ -40,7 +40,7 @@ class Interests extends Component {
   render() {
 
     return (
-      <Card>
+      <Card style={{backgroundColor: "#FEF5ED"}}>
         <Button
           className="rounded-circle"
           size="lg"
@@ -48,7 +48,6 @@ class Interests extends Component {
           onClick={this.pressed.bind(this)}
           style={{
             border: "none",
-            padding: "20px",
             textAlign: "center",
             textDecoration: "none",
             display: "inline - block",

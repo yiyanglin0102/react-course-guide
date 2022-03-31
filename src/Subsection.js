@@ -1,71 +1,40 @@
 import React from "react";
 import "./App.css";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 
 class Subsection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false,
-    }
-  }
-  renderTableData() {
-    let sections = this.props.data.sections;
-    return Object.keys(sections).map((key, index) => {
+  getTimes() {
+    let subsectionTimes = this.props.data.time;
+
+    const times = Object.keys(subsectionTimes).map((day) => {
       return (
-        <div style={{
-          fontSize: "18px",
-          textTransform: "capitalize",
-          display: "inline - block",
-          margin: "4px 2px",
-        }}>
-          {this.getDis(sections, key)}
-        </div>
-      )
-    })
+        <li key={day}>
+          {day}: {subsectionTimes[day]}
+        </li>
+      );
+    });
+
+    return times;
   }
 
-  getDis(section, choice) {
-    var disc = section[choice].subsections;
-    return Object.keys(disc).map((key, index) => {
-      return (
-        <tr key={this.props.data.number + choice + key + index}>
-          <td >{disc[key].number}</td>
-          <td >{disc[key].location}</td>
-          <td >{Object.entries(disc[key].time).join(" ; ")}</td>
-        </tr>
-      )
-    })
-  }
   render() {
-    return <div>
-      {!this.props.compactMode && 
-        <>
-          <Button className="btn btn-outline-light" variant="dark" onClick={() => { this.setState({ show: true }) }}>
-            <h6>Show Subsections</h6>
-          </Button>
+    let course = this.props.courseKey;
+    let section = this.props.sectionKey;
+    let subsection = this.props.data.number;
+    let location = this.props.data.location;
+    let listKey = [course, section, subsection].join("-");
 
-          <Modal
-            show={this.state.show}
-            onHide={() => this.setState({ show: false })}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="subsection-modal">
-                <h5>Subsections</h5>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <div>
-                <table>
-                  {this.renderTableData()}
-                </table>
-              </div>
-            </Modal.Body>
-          </Modal>
-        </>
-      }
-    </div>;
+    return (
+      <div>
+        <ul>
+          <li  style={{ listStyleType: "none", fontSize: "20px", color: "#CE1212", fontWeight: "bold"}} key={listKey}>{subsection}</li>
+          <ul key={subsection}>
+            <li key={location} style={{ listStyleType: "none" }}>{location}</li>
+            <li  style={{ listStyleType: "none" }}>Meeting Times</li>
+            <ul  style={{ listStyleType: "none" }}>{this.getTimes()}</ul>
+          </ul>
+        </ul>
+      </div>
+    );
   }
 }
 

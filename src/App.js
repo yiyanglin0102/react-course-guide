@@ -2,13 +2,10 @@ import React from "react";
 import "./App.css";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-// import Alert from 'react-bootstrap/Alert';
 import Sidebar from "./Sidebar";
 import CourseArea from "./CourseArea";
-import Cart from "./Cart";
-import Completed from "./Completed";
-import InterestsArea from "./InterestsArea";
-import Recommended from "./Recommended";
+import logo from './UWLogo.svg';
+import Navbar from 'react-bootstrap/Navbar';
 
 /**
  * The main application component.
@@ -21,21 +18,14 @@ class App extends React.Component {
       allCourses: [], // All the courses fetched from the server.
       filteredCourses: [], // The courses to be displayed in the CourseArea under Search tab.
       subjects: [], // The list of unique subjects fetched from the server.
-      completedCourses: [], // The list of *course numbers* of completed courses.
-      cart: [], // The list of added courses to cart
-      completedRating: [],
-      ratingCount: 'Course',
+      completedCourses: [], // The list of completed courses.
+      cartCourses: [], // The list of courses in the cart.
       interestsTags: [], // All unique values of keywords in each course
       recommendedCourses: [],
       selectedLikes: [],
     };
-    this.addCourseCart = this.addCourseCart.bind(this);
-    this.removeCourseCart = this.removeCourseCart.bind(this);
-    this.rating = this.rating.bind(this);
-    this.addRecommender = this.addRecommender.bind(this);
-    this.removeRecommender = this.removeRecommender.bind(this);
-    this.updateRecommendCourses = this.updateRecommendCourses.bind(this);
   }
+
 
   /**
    * When the component mounts, fetch the classes data from the server.
@@ -61,24 +51,50 @@ class App extends React.Component {
           }
         }
         interestsCollections.sort();
-        this.setState({ interestsTags: interestsCollections, }, () => {
-          // console.log(this.state.interestsTags)
-        });
+        this.setState({ interestsTags: interestsCollections, });
+        return data;
+      })
+      .then((allCourses) => {
+        // fetch all the completed courses
+        fetch(
+          "https://cs571.cs.wisc.edu/api/react/students/5022025924/classes/completed/"
+        )
+          .then((res) => res.json())
+          .then((completedCourseNumbers) => {
+            this.setState({
+              completedCourses: completedCourseNumbers.data.map(
+                (courseNumber) =>
+                  allCourses.find((course) => course.number === courseNumber)
+              ),
+            });
+          });
       })
       .catch((err) => console.log(err));
+  }
 
-    // Fetch the completed courses from the server.
-    fetch("https://cs571.cs.wisc.edu/api/react/students/5022025924/classes/completed")
-      .then((res) => res.json())
-      .then((data) => {
-        // Notice that completed courses are returned
-        // as a list of course numbers, not course objects.
-        this.setState({
-          completedCourses: data.data,
-          ratingCount: data.data.length,
-        });
-      })
-      .catch((err) => console.log(err));
+  // Callback function that adds a new course to the cartCourses state
+  addCartCourse = (course) => {
+    // Duplicate check
+    if (
+      this.state.cartCourses.some(
+        (cartCourse) => cartCourse.number === course.number
+      )
+    ) {
+      console.log(`${course.number} is already in the cart`);
+    } else {
+      this.setState({
+        cartCourses: [...this.state.cartCourses, course],
+      });
+    }
+  };
+
+  // Callback function that removes a course from the cartCourses state
+  removeCartCourse(course) {
+    this.setState({
+      cartCourses: this.state.cartCourses.filter(
+        (cartCourse) => cartCourse.number !== course.number
+      ),
+    });
   }
 
   getSubjects(data) {
@@ -96,57 +112,33 @@ class App extends React.Component {
     return subjects;
   }
 
+  // Callback function that sets the rating of a course
+  setRating(courseNumber, rating) {
+    this.setState({
+      completedCourses: this.state.completedCourses.map((course) => {
+        if (course.number === courseNumber) {
+          course.rating = rating;
+        }
+        return course;
+      }),
+    });
+  }
+
+  // Returns the number of courses that are not rated yet.
+  getNumCoursesNeedsRating() {
+    const numRatedCourses = this.state.completedCourses.filter(
+      (course) => course.rating !== undefined
+    ).length;
+
+    return this.state.completedCourses.length - numRatedCourses;
+  }
+
   setCourses(courses) {
     // This is a callback function for the filteredCourses state.
     // Set the courses to be displayed in the CourseArea under Search tab.
     // Refer to the Sidebar component (Sidebar.js) to understand when this is used.
     this.setState({ filteredCourses: courses });
   }
-
-  addCourseCart(course) {
-    // check the Requisite
-    // let meetRequisite = true;
-    for (let i = 0; i < course.requisites.length; i++) {
-      let result = this.state.completedCourses.some(j => course.requisites[i].includes(j));
-      if (result === false) {
-        alert("Course Added, but you do not meet the following Requisite: \n" + course.requisites[i]);
-        // meetRequisite = false;
-      }
-    }
-    ////
-    let updatedCart = [...this.state.cart]; //copy the original Cart
-    for (let i = 0; i < updatedCart.length; i++) {
-      if (updatedCart[i].number === course.number) {
-        return;
-      }
-    }
-    updatedCart.push(course);
-    this.setState({ cart: updatedCart });  //override the original cart
-  }
-
-  removeCourseCart(course) {
-    let updatedCart = [...this.state.cart]; //copy the original Cart
-    updatedCart = updatedCart.filter(function (item) {
-      return item !== course
-    })
-    this.setState({ cart: updatedCart }); //override the original cart
-  }
-
-  rating(course) {
-    let updatedCart = [...this.state.completedRating]; //copy the original Cart
-    updatedCart = updatedCart.filter(item => item.name !== course.name);
-    updatedCart.push({
-      key: course.name,
-      name: course.name,
-      rating: course.rating,
-    });
-
-    //https://stackoverflow.com/questions/36085726/why-is-setstate-in-reactjs-async-instead-of-sync
-    this.setState({ completedRating: updatedCart, }, () => {
-      this.setState({ ratingCount: this.state.completedCourses.length - this.state.completedRating.length });
-    });
-  }
-
   //input keyword and search all courses wih this keyword and push to recommendedCourses array
   addRecommender(tagName) {
     let updatedLikes = [...this.state.selectedLikes];
@@ -155,6 +147,7 @@ class App extends React.Component {
     this.setState({ selectedLikes: updatedLikes }, () => {
       this.updateRecommendCourses();
     });
+
   }
 
   removeRecommender(tagName) {
@@ -179,19 +172,33 @@ class App extends React.Component {
     let noDuplicateRecommender = [...new Set(updatedRecommender)];
     this.setState({ recommendedCourses: noDuplicateRecommender });
   }
+
   render() {
     return (
       <>
+        <Navbar
+          fixed={'top'}
+          className={'position-sticky ps-4'}
+          sytle={{ backgroundColor: "black" }}
+          expand="sm" bg="dark" variant="dark"
+          style={{ justifyContent: "left" }}
+        >
+          <a href="https://www.wisc.edu/">
+            <img src={logo} width="100" height="30" />
+          </a>
+        </Navbar>
+        <>
+
+        </>
         <Tabs
           defaultActiveKey="search"
           style={{
             position: "fixed",
             zIndex: 1,
             width: "100%",
-            backgroundColor: "#313854",
+            backgroundColor: "#CE1212",
           }}
         >
-        
           {/* Search Tab */}
           <Tab eventKey="search" title="Search" style={{ paddingTop: "5vh" }}>
             <Sidebar
@@ -203,11 +210,9 @@ class App extends React.Component {
               <CourseArea
                 data={this.state.filteredCourses}
                 allData={this.state.allCourses}
-                compactMode={false} // Optionally, you could use this prop in the future for Cart and Completed Courses?
-                recommenderMode={false}
-                addCart={this.addCourseCart}
-                removeCart={this.removeCourseCart}
-                cart={this.state.cart}
+                cartCourses={this.state.cartCourses}
+                addCartCourse={this.addCartCourse.bind(this)}
+                removeCartCourse={this.removeCartCourse.bind(this)}
               />
             </div>
           </Tab>
@@ -215,46 +220,49 @@ class App extends React.Component {
           {/* Cart Tab */}
           <Tab eventKey="cart" title="Cart" style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
-             <Cart data={this.state.cart}
-                removeCart={this.removeCourseCart}
-                compactMode={true}
-                ratingMode={false}
+              <CourseArea
+                mode="cart"
+                data={this.state.filteredCourses}
+                allData={this.state.allCourses}
+                cartCourses={this.state.cartCourses}
+                addCartCourse={this.addCartCourse}
+                removeCartCourse={this.removeCartCourse.bind(this)}
               />
             </div>
           </Tab>
 
           {/* Completed Courses Tab */}
-          <Tab eventKey="completedCourses" title={"Completed Courses (" + (this.state.ratingCount) + " needs rating)"} style={{ paddingTop: "5vh" }}>
+          <Tab
+            eventKey="completedCourses"
+            title={`Completed Courses (${this.getNumCoursesNeedsRating()} needs rating)`}
+            style={{ paddingTop: "5vh" }}
+          >
             <div style={{ marginLeft: "5vw" }}>
-              <Completed
-                completedData={this.state.completedCourses}
+              <CourseArea
+                mode="completed"
+                data={this.state.completedCourses}
                 allData={this.state.allCourses}
-                compactMode={true}
-                ratingMode={true}
-                rating={this.rating}
+                setRating={this.setRating.bind(this)}
               />
             </div>
-
-            {/* Interests Tab */}
           </Tab>
           <Tab eventKey="interests" title={"Interests"} style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
-              <InterestsArea
+              <CourseArea
+                mode="interests"
                 interestsTags={this.state.interestsTags}
-                addRecommender={this.addRecommender}
-                removeRecommender={this.removeRecommender}
+                addRecommender={this.addRecommender.bind(this)}
+                removeRecommender={this.removeRecommender.bind(this)}
               />
-
             </div>
           </Tab>
-
-          {/* Course Recommender  */}
+          {/* Course Recommender */}
           <Tab eventKey="recommnder" title="Recommended Courses" style={{ paddingTop: "5vh" }}>
             <div style={{ marginLeft: "5vw" }}>
-              <Recommended
+              <CourseArea
                 data={this.state.recommendedCourses}
-                compactMode={true}
-                recommenderMode={true}
+                allData={this.state.allCourses}
+                mode="recommended"
               />
             </div>
           </Tab>
