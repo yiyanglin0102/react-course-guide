@@ -8,13 +8,13 @@ This project introduces features of JavaScript, along with showing how a React p
 
 Screenshots demonstrating the functionality of the course management application:
 
-![Screenshot 0](./Screenshots/0.png)
-![Screenshot 1](./Screenshots/1.jpeg)
-![Screenshot 2](./Screenshots/2.jpeg)
-![Screenshot 3](./Screenshots/3.jpeg)
-![Screenshot 4](./Screenshots/4.jpeg)
-![Screenshot 5](./Screenshots/5.jpeg)
-![Screenshot 6](./Screenshots/6.jpeg)
-![Screenshot 7](./Screenshots/7.jpeg)
-![Screenshot 8](./Screenshots/8.jpeg)
-![Screenshot 9](./Screenshots/9.jpeg)
+![Screenshot 0](./screenshots/0.png)
+![Screenshot 1](./screenshots/1.jpeg)
+![Screenshot 2](./screenshots/2.jpeg)
+![Screenshot 3](./screenshots/3.jpeg)
+![Screenshot 4](./screenshots/4.jpeg)
+![Screenshot 5](./screenshots/5.jpeg)
+![Screenshot 6](./screenshots/6.jpeg)
+![Screenshot 7](./screenshots/7.jpeg)
+![Screenshot 8](./screenshots/8.jpeg)
+![Screenshot 9](./screenshots/9.jpeg)
