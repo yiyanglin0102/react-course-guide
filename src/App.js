@@ -34,7 +34,7 @@ class App extends React.Component {
    */
   componentDidMount() {
     // Fetch all the courses from the server
-    fetch("https://cs571.cs.wisc.edu/api/react/classes")
+    fetch("https://3h3az2twd7.execute-api.us-east-1.amazonaws.com/dev/courses")
       .then((res) => res.json())
       .then((data) => {
         this.setState({
@@ -57,7 +57,7 @@ class App extends React.Component {
       .then((allCourses) => {
         // fetch all the completed courses
         fetch(
-          "https://cs571.cs.wisc.edu/api/react/students/5022025924/classes/completed/"
+          "https://3h3az2twd7.execute-api.us-east-1.amazonaws.com/dev/completed"
         )
           .then((res) => res.json())
           .then((completedCourseNumbers) => {
@@ -184,8 +184,9 @@ class App extends React.Component {
           style={{ justifyContent: "left" }}
         >
           <a href="https://www.wisc.edu/">
-            <img src={logo} width="100" height="30" />
+            <img src={logo} width="100" height="30" alt="University of Wisconsin logo" />
           </a>
+
         </Navbar>
         <>
 

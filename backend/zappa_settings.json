@@ -1,0 +1,11 @@
+{
+    "dev": {
+        "app_function": "app.app",
+        "aws_region": "us-east-1",
+        "profile_name": "yiyanglin",
+        "project_name": "flaskapi",
+        "runtime": "python3.8",
+        "s3_bucket": "courseguide-bucket",
+        "api_id": "q3h7lu7df1"
+    }
+}
