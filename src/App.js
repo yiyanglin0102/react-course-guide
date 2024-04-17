@@ -34,7 +34,7 @@ class App extends React.Component {
    */
   componentDidMount() {
     // Fetch all the courses from the server
-    fetch("https://3h3az2twd7.execute-api.us-east-1.amazonaws.com/dev/courses")
+    fetch("https://geozl6xwli.execute-api.us-east-1.amazonaws.com/dev/courses")
       .then((res) => res.json())
       .then((data) => {
         this.setState({
@@ -57,7 +57,7 @@ class App extends React.Component {
       .then((allCourses) => {
         // fetch all the completed courses
         fetch(
-          "https://3h3az2twd7.execute-api.us-east-1.amazonaws.com/dev/completed"
+          "https://geozl6xwli.execute-api.us-east-1.amazonaws.com/dev/completed"
         )
           .then((res) => res.json())
           .then((completedCourseNumbers) => {
